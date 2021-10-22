@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS questions CASCADE;
+
+CREATE TABLE questions (
+  id SERIAL PRIMARY KEY NOT NULL,
+  region_id INTEGER REFERENCES regions(id) ON DELETE CASCADE,
+  question VARCHAR(255) NOT NULL,
+  difficulty VARCHAR(255) NOT NULL
+);
