@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "./node_modules/.bin/nodemon -L express_server.js",
+    "start": "node ./bin/www",
     "dev": "npm run dev",
     "db:reset": "node ./db/reset.js"
   },
