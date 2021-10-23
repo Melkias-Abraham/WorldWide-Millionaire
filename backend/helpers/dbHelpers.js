@@ -48,6 +48,17 @@ module.exports = (db) => {
 
   }
 
+  const getContinentBasedQuestions = (continentName) => {
+
+    const query = {
+        text: `SELECT * FROM questions WHERE region_id`
+    }
+
+
+  }
+
+
+
   return {
       getUsers,
       getUserByEmail,

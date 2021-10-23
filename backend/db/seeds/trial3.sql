@@ -22,26 +22,30 @@ INSERT INTO regions (name) VALUES
 (
     -- 6
     'Oceania'
-)
+);
 
-INSERT INTO
-questions (region_id, question, difficulty)
+INSERT INTO questions (region_id, question, difficulty)
 VALUES
   (
-    1
+    1,
     'What is the capital city of Canada?',
     'easy'
   ),
+(
+    2,
+    'Alaska is part of what country?',
+    'easy'
+  ),
   (
-    1
+    3,
+    'Which is the largest country in North America? (by size)',
+    'easy'
+  ),
+  (
+    1,
     'What is the capital city of USA?',
     'easy'
-  ),
-  (
-    1
-    'What is the capital city of Canada?',
-    'easy'
-  )
+  );
 
 INSERT INTO
 answers (question_id, answer, correct)
@@ -65,24 +69,64 @@ VALUES
     1,
     'Los Angeles',
     false
-  )
-    (
-    2,
-    'Washington DC',
-    false
   ),
-    (
+  (
     2,
-    'Ottawa',
+    'United States of America',
     true
   ),
-    (
+  (
     2,
-    'Toronto',
+    'Canada',
     false
   ),
-    (
+  (
     2,
-    'Los Angeles',
+    'Artic Circle',
     false
-  )
+  ),
+  (
+    2,
+    'Greenland',
+    false
+  ),
+  (
+    3,
+    'United States of America',
+    false
+  ),
+  (
+    3,
+    'Mexico',
+    false
+  ),
+  (
+    3,
+    'Canada',
+    true
+  ),
+  (
+    3,
+    'Greenland',
+    false
+  ),
+  (
+    4,
+    'Ottawa',
+    false
+  ),
+  (
+    4,
+    'New York City',
+    false
+  ),
+  (
+    4,
+    'Seattle',
+    true
+  ),
+  (
+    4,
+    'Massachussets',
+    false
+  );
