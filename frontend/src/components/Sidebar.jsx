@@ -38,7 +38,11 @@ export default function Sidebar({continent}) {
         variant="permanent"
         anchor="left"
       >
-        <Toolbar />
+        <Toolbar>
+        <div>
+            <h3>WorldWide Millionaire 💰 </h3>
+        </div>
+        </Toolbar>
         <Divider />
         <Toolbar />
         <div>

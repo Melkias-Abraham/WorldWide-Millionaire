@@ -1,4 +1,5 @@
 import React, { memo, useState } from "react";
+import './MapChart.css';
 import {
   ZoomableGroup,
   ComposableMap,
@@ -19,16 +20,18 @@ const MapChart = ({ setTooltipContent }) => {
   const onContinentClick = (continentName) => {
       setContinent(continentName)
   }
+  
     
   return (
     <>
     <Sidebar continent={continent} />
-      <ComposableMap data-tip="" projectionConfig={{ scale: 250 }}>
+      <ComposableMap data-tip="" projectionConfig={{ scale: 270 }}>
         <ZoomableGroup>
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
-              geographies.map(geo => (
-                <Geography
+              geographies.map(geo => {
+                const isClicked = continent === geo.properties.continent;
+                 return <Geography
                   key={geo.rsmKey}
                   geography={geo}
                   onMouseEnter={() => {
@@ -39,25 +42,26 @@ const MapChart = ({ setTooltipContent }) => {
                     setTooltipContent("");
                   }}
                   onClick={() => onContinentClick(geo.properties.continent)}
+                  stroke="#5D3FD3"
                   style={{
                     default: {
-                      fill: "#D6D6DA",
+                      fill: isClicked ? '#5D3FD3' : "#D6D6DA",
                       outline: "none",
-                    
                     },
                     hover: {
-                    transition: "all .6s ease-out",
+                      transition: "all .6s ease-out",
                       fill: "#5D3FD3",
                       outline: "none",
                       cursor: "pointer"
                     },
                     pressed: {
-                      fill: "#E42",
+                      fill: "#5D3FD3",
                       outline: "none"
                     }
                   }}
                 />
-              ))
+                }
+              )
             }
           </Geographies>
         </ZoomableGroup>
