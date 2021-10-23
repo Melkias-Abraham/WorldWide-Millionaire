@@ -42,11 +42,12 @@ const MapChart = ({ setTooltipContent }) => {
                     setTooltipContent("");
                   }}
                   onClick={() => onContinentClick(geo.properties.continent)}
-                  stroke="#5D3FD3"
+                  
                   style={{
                     default: {
                       fill: isClicked ? '#5D3FD3' : "#D6D6DA",
                       outline: "none",
+                      stroke: "#fff"
                     },
                     hover: {
                       transition: "all .6s ease-out",
