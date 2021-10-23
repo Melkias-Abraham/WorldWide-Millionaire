@@ -42,13 +42,14 @@ export default function Sidebar({continent}) {
         <Divider />
         <Toolbar />
         <div>
-        <TextField id="outlined-basic" label="Name" variant="outlined" />
+        <TextField id="outlined-basic" label="Insert Name" variant="outlined" />
         </div>
         <div>
-        <h4>Currently selected:</h4>{continent}
+        <h4>Currently selected:</h4> <p>{continent || 'None'}</p>
         </div>
-        <Toolbar />
+        <div>
         <Button variant="contained">Start Game</Button>
+        </div>
       </Drawer>
     </Box>
   );
