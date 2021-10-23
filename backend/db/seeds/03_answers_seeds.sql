@@ -5,7 +5,6 @@ VALUES
     1,
     'Washington DC',
     false
-
   ), 
   (
     1,
@@ -398,7 +397,7 @@ VALUES
     'Peru',
     true
   ),
- (
+  (
     21,
     'England',
     false
@@ -1198,11 +1197,4 @@ VALUES
     'Lamingtons',
     true
   )
-
-
-
-
   
-  
-  
-
