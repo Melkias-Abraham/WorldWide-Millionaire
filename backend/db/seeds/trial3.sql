@@ -21,7 +21,7 @@ INSERT INTO regions (name) VALUES
 ),
 (
     -- 6
-    'Oceania'
+    'Australia'
 );
 
 INSERT INTO questions (region_id, question, difficulty)
@@ -130,3 +130,15 @@ VALUES
     'Massachussets',
     false
   );
+
+
+
+INSERT INTO
+gamers(name)
+VALUES
+    ('Mario'),
+    ('Luigi');
+
+INSERT INTO games (user_id, name, score) VALUES
+  (1, 'Mario', 3000),
+  (2, 'Luigi', 5000)

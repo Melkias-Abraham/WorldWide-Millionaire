@@ -5,6 +5,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var gamersRouter = require('./routes/gamers');
+const questionsRouter = require('./routes/questions')
 
 const db = require('./db')
 const dbHelpers = require('./helpers/dbHelpers')(db);
@@ -21,5 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter(dbHelpers));
-
+app.use('/api/gamers', gamersRouter(dbHelpers));
+app.use('/api/questions', questionsRouter(dbHelpers));
 module.exports = app;
