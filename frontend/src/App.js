@@ -16,7 +16,7 @@ const App = () => {
     // dispatch,
     getQuestions
   } = useApplicationData();
-  console.log(state);
+  
   const userList = state.users.map((user) => (
     <li key={user.id}>
       {" "}
@@ -26,9 +26,10 @@ const App = () => {
   const [content, setContent] = useState("");
   const [start, setStart] = useState("");
 
+  console.log(state);
   return (
     <div className="App">
-      {/* <h1> Users!! </h1>
+      {/* <h1> Users </h1>
   <ul> {userList} </ul> */}
       {start !== "started" ? (
         <div className="map">
@@ -42,7 +43,7 @@ const App = () => {
         </div>
       ) : (
         <div>
-          <Game continent={continent} onStart={getQuestions} />
+          <Game state={state} continent={continent} onStart={getQuestions} />
         </div>
       )}
     </div>
