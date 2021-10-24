@@ -1,5 +1,6 @@
 import React, { memo, useState } from "react";
 import './MapChart.css';
+import geoData from '../assets/continents.json'
 import {
   ZoomableGroup,
   ComposableMap,
@@ -9,28 +10,27 @@ import {
 import Sidebar from './Sidebar';
 
 
-const geoUrl =
-  "https://raw.githubusercontent.com/deldersveld/topojson/master/world-continents.json";
+const MapChart = (props) => {
 
-
-const MapChart = ({ setTooltipContent }) => {
-
-  const [continent, setContinent] = useState("")  
+  const { setTooltipContent, setStart, continent, setContinent } = props
 
   const onContinentClick = (continentName) => {
-      setContinent(continentName)
+      setContinent({
+        name: continentName.continent,
+        id: continentName.id
+      })
+      
   }
   
-    
   return (
     <>
-    <Sidebar continent={continent} />
+    <Sidebar setStart={setStart} continent={continent.name} />
       <ComposableMap data-tip="" projectionConfig={{ scale: 270 }}>
         <ZoomableGroup>
-          <Geographies geography={geoUrl}>
+          <Geographies geography={geoData}>
             {({ geographies }) =>
               geographies.map(geo => {
-                const isClicked = continent === geo.properties.continent;
+                const isClicked = continent.name === geo.properties.continent;
                  return <Geography
                   key={geo.rsmKey}
                   geography={geo}
@@ -41,7 +41,7 @@ const MapChart = ({ setTooltipContent }) => {
                   onMouseLeave={() => {
                     setTooltipContent("");
                   }}
-                  onClick={() => onContinentClick(geo.properties.continent)}
+                  onClick={() => onContinentClick(geo.properties)}
                   
                   style={{
                     default: {

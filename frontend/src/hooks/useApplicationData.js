@@ -3,7 +3,8 @@ import {
   useReducer
 } from 'react';
 import dataReducer, {
-  SET_USERS
+  SET_USERS,
+  SET_QUESTIONS
 } from '../reducers/dataReducers';
 import axios from 'axios';
 
@@ -12,6 +13,16 @@ const useApplicationData = () => {
       users: [],
       loading: true,
   });
+
+  const getQuestions = (id) => {
+    return axios.get(`/api/questions/${id}`).then((questions) => {
+      dispatch({
+        type: SET_QUESTIONS,
+        questions: questions.data
+    });
+    });
+  };
+
   useEffect(() => {
       axios({
               method: 'GET',
@@ -32,6 +43,7 @@ const useApplicationData = () => {
   return {
       state,
       dispatch,
+      getQuestions
   };
 };
 
