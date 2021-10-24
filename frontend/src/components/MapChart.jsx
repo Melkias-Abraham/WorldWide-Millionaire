@@ -14,6 +14,7 @@ const MapChart = (props) => {
 
   const { setTooltipContent, setStart, continent, setContinent } = props
 
+
   const onContinentClick = (continentName) => {
       setContinent({
         name: continentName.continent,

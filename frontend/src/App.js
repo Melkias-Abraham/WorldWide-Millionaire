@@ -4,6 +4,7 @@ import useApplicationData from "./hooks/useApplicationData";
 import ReactTooltip from "react-tooltip";
 
 import MapChart from "./components/MapChart";
+import Game from "./components/Game";
 
 const App = () => {
   const [continent, setContinent] = useState({
@@ -12,8 +13,10 @@ const App = () => {
   });
   const {
     state,
-    // dispatch
+    // dispatch,
+    getQuestions
   } = useApplicationData();
+  console.log(state);
   const userList = state.users.map((user) => (
     <li key={user.id}>
       {" "}
@@ -21,21 +24,30 @@ const App = () => {
     </li>
   ));
   const [content, setContent] = useState("");
+  const [start, setStart] = useState("");
 
   return (
     <div className="App">
       {/* <h1> Users!! </h1>
   <ul> {userList} </ul> */}
-      <div className="map">
-        <MapChart
-          continent={continent}
-          setContinent={setContinent}
-          setTooltipContent={setContent}
-        />
-        <ReactTooltip>{content}</ReactTooltip>
-      </div>
+      {start !== "started" ? (
+        <div className="map">
+          <MapChart
+            setStart={setStart}
+            continent={continent}
+            setContinent={setContinent}
+            setTooltipContent={setContent}
+          />
+          <ReactTooltip>{content}</ReactTooltip>
+        </div>
+      ) : (
+        <div>
+          <Game continent={continent} onStart={getQuestions} />
+        </div>
+      )}
     </div>
   );
 };
 
 export default App;
+
