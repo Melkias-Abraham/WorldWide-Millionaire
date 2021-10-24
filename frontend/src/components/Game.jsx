@@ -11,9 +11,9 @@ import Typography from "@mui/material/Typography";
 export default function Game(props) {
   const { onStart, continent } = props;
 
-  useEffect(() => {
-    onStart(continent.id);
-  }, [continent]);
+//   useEffect(() => {
+// }, []);
+onStart(continent.id);
 
   return (
     <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
