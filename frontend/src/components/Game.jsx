@@ -1,56 +1,39 @@
-import * as React from "react";
-import { useEffect } from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import Divider from "@mui/material/Divider";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
+import React, { useState } from "react";import { useEffect } from "react";
+
 
 export default function Game(props) {
-  const { onStart, continent, state } = props;
+  const { onStart, questionNumber, continent, state } = props;
+  const [question, setQuestion] = useState(null)
+
+
 
   useEffect(() => {
-    onStart(continent.id);
-}, [continent]);
+    onStart(continent.id)
+  }, [continent]);
 
 
-if(!state.questions) return (<span>loading...</span>);
-  console.log(state);
+  useEffect(() => {
+    if (!state.questions) return <span>loading...</span>;
+    setQuestion(state.questions[questionNumber-1])
+  }, [state.questions, questionNumber]);
+  
 
 
-  const questionsList = state.questions.map((eachQuestion) => (
-    <>
-    <ListItem key={eachQuestion.id} alignItems="flex-start">
-    <ListItemAvatar>
-      <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-    </ListItemAvatar>
-    <ListItemText
-      primary="Brunch this weekend?"
-      secondary={
-        <React.Fragment>
-          <Typography
-            sx={{ display: "inline" }}
-            component="span"
-            variant="body2"
-            color="text.primary"
-          >
-            Ali Connors
-          </Typography>
-          {eachQuestion.question}
-        </React.Fragment>
-      }
-    />
-  </ListItem>
-    <Divider variant="inset" component="li" />
-  </>
-  ));
+  if (!state.questions) return <span>loading...</span>;
+
+  // console.log("state:", state, "question:",question);
 
   return (
-    <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-      {questionsList}
-      
-    </List>
+
+       <div>
+       <div>{question?.question}</div>
+       <div>
+         {question?.answers[0].map(answer => (
+           <div>
+             {answer.answer}
+           </div>
+         ))}
+       </div>
+     </div>
   );
 }
