@@ -5,6 +5,8 @@ import ReactTooltip from "react-tooltip";
 
 import MapChart from "./components/MapChart";
 import Game from "./components/Game";
+import Register from "./components/Register";
+
 
 const App = () => {
   const [continent, setContinent] = useState({
@@ -46,6 +48,7 @@ const App = () => {
           <Game state={state} continent={continent} onStart={getQuestions} />
         </div>
       )}
+      {/* <Register/> */}
     </div>
   );
 };
