@@ -48,6 +48,8 @@ module.exports = (db) => {
 
   }
 
+
+  // give it a continent id and it will return an object that has all the questions from that continent from the database
   const getContinentBasedQuestions = (continentId) => {
 
     const query = {
@@ -56,6 +58,18 @@ module.exports = (db) => {
     }
     return db.query(query)
         .then(questions => questions.rows )
+        .catch((err) => err)
+  }
+
+  // give it a question id and it will return an object with all answers for that question from the database
+  const getQuestionBasedAnswers = (questionId) => {
+
+    const query = {
+        text: `SELECT * FROM answers WHERE question_id = $1`,
+        values:[questionId]
+    }
+    return db.query(query)
+        .then(answers => answers.rows )
         .catch((err) => err)
   }
 
@@ -91,6 +105,7 @@ const getGamerByName = (name) => {
       addUser,
       getUsersPosts,
       addGamer,
-      getContinentBasedQuestions
+      getContinentBasedQuestions,
+      getQuestionBasedAnswers
   };
 };

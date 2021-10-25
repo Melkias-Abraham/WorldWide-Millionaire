@@ -27,7 +27,7 @@ app.use('/api/gamers', gamersRouter(dbHelpers));
 app.use('/api/questions', questionsRouter(dbHelpers));
 
 
-app.listen(3001, () => {
-    console.log("Listening on 3001");
-} )
+const port = process.env.PORT || 3001; 
+
+app.listen(port, (err) => console.log(err || `listening on port ${port} 😎`));
 module.exports = app;

@@ -1,64 +1,50 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const {
-    getPostsByUsers
-} = require('../helpers/dataHelpers');
+const { getPostsByUsers } = require("../helpers/dataHelpers");
 
-module.exports = ({
-    getContinentBasedQuestions,
+module.exports = ({ getContinentBasedQuestions, getQuestionBasedAnswers }) => {
 
-}) => {
-    /* GET users listing. */
-    router.get('/:id', (req, res) => {
+  /* GET questions and answers listing.
+        1. When a continent is clicked, getContinentBasedQuestions returns all the questions related to the region
+        2. map through each question and fetch answers related to each question
+        3. on the next .then, create a new object with an 'answers' array for each question
+    */
 
-        const {
-            id
-        } = req.params;
-        getContinentBasedQuestions(id)
-            .then((questions) => {
-            // console.log(users)
-             return res.json(questions)
-             
-    })
-            .catch((err) => res.json({
-                error: err.message
-            }));
-    });
+  router.get("/:id", (req, res) => {
+    const { id } = req.params;
 
-    // router.get('/posts', (req, res) => {
-    //     getUsersPosts()
-    //         .then((usersPosts) => {
-    //             const formattedPosts = getPostsByUsers(usersPosts);
-    //             res.json(formattedPosts);
-    //         })
-    //         .catch((err) => res.json({
-    //             error: err.message
-    //         }));
-    // });
+    const promises = [];
+    getContinentBasedQuestions(id)
+      .then((questions) => {
+        promises.push(Promise.resolve(questions));
+        // console.log("questions is:",questions);
 
-    // router.post('/', (req, res) => {
+        questions.map((question) => {
+          let answerPromise = getQuestionBasedAnswers(question.id).then(
+            (answers) => answers
+          );
+          promises.push(answerPromise);
+        });
 
-    //     const {
-    //         name
-    //     } = req.body;
+        return Promise.all(promises);
 
-    //         getUserByEmail(name)
-    //         .then(user => {
+      })
+      .then((data) => {
+        const newData = [...data[0]];
+        newData.map((questionObj) => {
+          if (!questionObj["answer"]) {
+            questionObj["answer"] = [];
+            questionObj["answer"].push(data[questionObj.id]);
+          }
+        });
+        res.send(newData);
+      })
+      .catch((err) =>
+        res.json({
+          error: err.message,
+        })
+      );
+  });
 
-    //             if (user) {
-    //                 res.json({
-    //                     msg: 'Sorry, a user account with this email already exists'
-    //                 });
-    //             } else {
-    //                 return addUser(name)
-    //             }
-    //         })
-    //         .then(newUser => res.json(newUser))
-    //         .catch(err => res.json({
-    //             error: err.message
-    //         }));
-    // })
-
-    return router;
+  return router;
 };
-
