@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 const {
     getPostsByUsers
 } = require('../helpers/dataHelpers');
@@ -8,7 +9,8 @@ module.exports = ({
     getUsers,
     getUserByEmail,
     addUser,
-    getUsersPosts
+    getUsersPosts,
+    authenticateUser
 }) => {
     /* GET users listing. */
     router.get('/', (req, res) => {
@@ -37,6 +39,8 @@ module.exports = ({
             email,
             password
         } = req.body;
+        const hashedPassword = bcrypt.hashSync(password, 10);
+
 
         getUserByEmail(email)
             .then(user => {
@@ -46,7 +50,34 @@ module.exports = ({
                         msg: 'Sorry, a user account with this email already exists'
                     });
                 } else {
-                    return addUser(name, email, password)
+                    return addUser(name, email, hashedPassword)
+                }
+
+            })
+            .then(newUser => res.json(newUser))
+            .catch(err => res.json({
+                error: err.message
+            }));
+
+    })
+    router.post('/login', (req, res) => {
+
+        const {
+            email,
+            password
+        } = req.body;
+        const hashedPassword = bcrypt.hashSync(password, 10);
+
+
+        authenticateUser(email, password)
+            .then(user => {
+
+                if (!user) {
+                    res.json({
+                        msg: 'Wrong username or password'
+                    });
+                } else {
+                    return res.status(200).json({id: user.id, name: user.name, email:user.email, password:user.password})
                 }
 
             })

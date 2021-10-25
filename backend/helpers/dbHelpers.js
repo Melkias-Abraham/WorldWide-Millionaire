@@ -1,3 +1,5 @@
+const bcrypt = require("bcryptjs");
+
 module.exports = (db) => {
   const getUsers = () => {
       const query = {
@@ -23,16 +25,30 @@ module.exports = (db) => {
           .catch((err) => err);
   }
 
-  const addUser = (firstName, lastName, email, password) => {
+  const addUser = (name, email, password) => {
       const query = {
-          text: `INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING *` ,
-          values: [firstName, lastName, email, password]
+          text: `INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *` ,
+          values: [name, email, password]
       }
 
       return db.query(query)
           .then(result => result.rows[0])
           .catch(err => err);
   }
+
+  // function that checks password and authenticates user based on findUserByEmail
+const authenticateUser = (email, password) => {
+    // const user = findUserByEmail(db, email);
+    return getUserByEmail(email).then((user) => {
+      if (!user) {
+        return null;
+      }
+      if (bcrypt.compareSync(password, user.password)) {
+        return user;
+      }
+      return null;
+    });
+  };
 
   const getUsersPosts = () => {
       const query = {
@@ -106,6 +122,7 @@ const getGamerByName = (name) => {
       getUsersPosts,
       addGamer,
       getContinentBasedQuestions,
-      getQuestionBasedAnswers
+      getQuestionBasedAnswers,
+      authenticateUser
   };
 };
