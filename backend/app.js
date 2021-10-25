@@ -25,4 +25,9 @@ app.use('/', indexRouter);
 app.use('/api/users', usersRouter(dbHelpers));
 app.use('/api/gamers', gamersRouter(dbHelpers));
 app.use('/api/questions', questionsRouter(dbHelpers));
+
+
+app.listen(3001, () => {
+    console.log("Listening on 3001");
+} )
 module.exports = app;
