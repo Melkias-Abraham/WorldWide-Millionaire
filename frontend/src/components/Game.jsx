@@ -18,10 +18,9 @@ export default function Game(props) {
   }, [state.questions, questionNumber]);
   
 
-
-  if (!state.questions) return <span>loading...</span>;
-
-  // console.log("state:", state, "question:",question);
+  
+  // uncomment this and check the console to see all the questions and answers structure
+  // console.log("state:", state);
 
   return (
 
