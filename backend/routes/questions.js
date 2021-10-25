@@ -31,8 +31,6 @@ module.exports = ({ getContinentBasedQuestions, getQuestionBasedAnswers }) => {
       })
       .then((data) => {
         const newData = [...data[0]];
-        console.log(newData);
-        console.log("DATA:", data);
         newData.map((questionObj, i) => {
           if (!questionObj["answers"]) {
             questionObj["answers"] = [];
