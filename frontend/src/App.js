@@ -13,26 +13,35 @@ const App = () => {
     name: "",
     id: "",
   });
+  const [questionNumber, setQuestionNumber] = useState(1);
+
   const {
     state,
     dispatch,
     getQuestions
   } = useApplicationData();
-  
-  const userList = state.users.map((user) => (
-    <li key={user.id}>
-      {" "}
-      {user.first_name} {user.last_name} {user.email}{" "}
-    </li>
-  ));
+
+
+  // being used by react tooltip (the hover effect that shows the continent name)
   const [content, setContent] = useState("");
+
+  // using setStart as a temporary way to transition from map to question page -- will need to change later to check for user --
   const [start, setStart] = useState("");
 
-  console.log(state);
+  // console.log(state);
   return (
     <div className="App">
-      {/* <h1> Users </h1>
-  <ul> {userList} </ul> */}
+
+
+
+      {
+      /* 
+      - gonna need to change Game component to our real Trivia/Question display component
+      - for now, check if 'start' is equal to started, and if not show map - otherwise go to game page (<Game/>)
+      - will 'start' to log in user later
+      
+      */
+      }
       {start !== "started" ? (
         <div className="map">
           <MapChart
@@ -45,7 +54,7 @@ const App = () => {
         </div>
       ) : (
         <div>
-          <Game state={state} continent={continent} onStart={getQuestions} />
+          <Game questionNumber={questionNumber} state={state} continent={continent} onStart={getQuestions} />
         </div>
       )}
       {/* <Register/> */}
