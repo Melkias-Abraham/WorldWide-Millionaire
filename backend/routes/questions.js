@@ -31,10 +31,12 @@ module.exports = ({ getContinentBasedQuestions, getQuestionBasedAnswers }) => {
       })
       .then((data) => {
         const newData = [...data[0]];
+        console.log(newData);
+        console.log("DATA:", data);
         newData.map((questionObj, i) => {
           if (!questionObj["answers"]) {
             questionObj["answers"] = [];
-            questionObj["answers"].push(data[questionObj.id]);
+            questionObj["answers"].push(data[i+1]);
           }
         });
         res.send(newData);
