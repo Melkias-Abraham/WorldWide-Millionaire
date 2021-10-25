@@ -5,6 +5,7 @@ import ReactTooltip from "react-tooltip";
 
 import MapChart from "./components/MapChart";
 import Game from "./components/Game";
+import Trivia from "./components/Trivia";
 
 const App = () => {
   const [continent, setContinent] = useState({
@@ -52,7 +53,12 @@ const App = () => {
         </div>
       ) : (
         <div>
-          <Game questionNumber={questionNumber} state={state} continent={continent} onStart={getQuestions} />
+          {/* <Game questionNumber={questionNumber} state={state} continent={continent} onStart={getQuestions} /> */}
+          { <Trivia
+           questionNumber={questionNumber}
+          state={state}
+           continent={continent}
+            onStart={getQuestions} setQuestionNumber={setQuestionNumber} />}
         </div>
       )}
     </div>
