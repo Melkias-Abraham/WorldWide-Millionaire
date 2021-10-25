@@ -11,46 +11,47 @@ import Typography from "@mui/material/Typography";
 export default function Game(props) {
   const { onStart, continent, state } = props;
 
+  // after 'start game' is clicked, onStart chooses the continent's id to pull questions
   useEffect(() => {
     onStart(continent.id);
-}, [continent]);
+  }, [continent]);
 
 
-if(!state.questions) return (<span>loading...</span>);
+  // checks if it's still loading
+  if (!state.questions) return <span>loading...</span>;
   console.log(state);
 
-
+  
   const questionsList = state.questions.map((eachQuestion) => (
     <>
-    <ListItem key={eachQuestion.id} alignItems="flex-start">
-    <ListItemAvatar>
-      <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-    </ListItemAvatar>
-    <ListItemText
-      primary="Brunch this weekend?"
-      secondary={
-        <React.Fragment>
-          <Typography
-            sx={{ display: "inline" }}
-            component="span"
-            variant="body2"
-            color="text.primary"
-          >
-            Ali Connors
-          </Typography>
-          {eachQuestion.question}
-        </React.Fragment>
-      }
-    />
-  </ListItem>
-    <Divider variant="inset" component="li" />
-  </>
+      <ListItem key={eachQuestion.id} alignItems="flex-start">
+        <ListItemAvatar>
+          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+        </ListItemAvatar>
+        <ListItemText
+          primary="Brunch this weekend?"
+          secondary={
+            <React.Fragment>
+              <Typography
+                sx={{ display: "inline" }}
+                component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                Ali Connors
+              </Typography>
+              {eachQuestion.question}
+            </React.Fragment>
+          }
+        />
+      </ListItem>
+      <Divider variant="inset" component="li" />
+    </>
   ));
 
   return (
     <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
       {questionsList}
-      
     </List>
   );
 }

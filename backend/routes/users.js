@@ -30,11 +30,10 @@ module.exports = ({
             }));
     });
 
-    router.post('/', (req, res) => {
+    router.post('/register', (req, res) => {
 
         const {
-            first_name,
-            last_name,
+            name,
             email,
             password
         } = req.body;
@@ -47,7 +46,7 @@ module.exports = ({
                         msg: 'Sorry, a user account with this email already exists'
                     });
                 } else {
-                    return addUser(first_name, last_name, email, password)
+                    return addUser(name, email, password)
                 }
 
             })

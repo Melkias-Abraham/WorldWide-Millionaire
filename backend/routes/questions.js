@@ -37,7 +37,7 @@ module.exports = ({ getContinentBasedQuestions, getQuestionBasedAnswers }) => {
             questionObj["answer"].push(data[questionObj.id]);
           }
         });
-        res.send(newData);
+        // res.send(newData);
       })
       .catch((err) =>
         res.json({

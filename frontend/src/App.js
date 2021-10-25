@@ -13,7 +13,7 @@ const App = () => {
   });
   const {
     state,
-    // dispatch,
+    dispatch,
     getQuestions
   } = useApplicationData();
   
