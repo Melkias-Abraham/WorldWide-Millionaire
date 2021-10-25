@@ -11,7 +11,9 @@ import Divider from '@mui/material/Divider';
 
 const drawerWidth = 400;
 
-export default function Sidebar({continent}) {
+export default function Sidebar(props) {
+
+    const {continent, setStart} = props 
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -52,7 +54,7 @@ export default function Sidebar({continent}) {
         <h4>Currently selected:</h4> <p>{continent || 'None'}</p>
         </div>
         <div>
-        <Button variant="contained">Start Game</Button>
+        <Button variant="contained" onClick = {() => setStart('started')} >Start Game</Button>
         </div>
       </Drawer>
     </Box>
