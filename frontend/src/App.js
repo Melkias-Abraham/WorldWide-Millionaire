@@ -54,7 +54,11 @@ const App = () => {
       ) : (
         <div>
           {/* <Game questionNumber={questionNumber} state={state} continent={continent} onStart={getQuestions} /> */}
-          { <Trivia questionNumber={questionNumber} state={state} continent={continent} onStart={getQuestions} />}
+          { <Trivia
+           questionNumber={questionNumber}
+          state={state}
+           continent={continent}
+            onStart={getQuestions} setQuestionNumber={setQuestionNumber} />}
         </div>
       )}
     </div>
