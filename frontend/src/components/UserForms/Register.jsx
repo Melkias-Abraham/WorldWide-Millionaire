@@ -1,10 +1,8 @@
-import * as React from 'react';
+import React, { useState, useRef } from "react";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -12,13 +10,16 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Alert from '@mui/material/Alert';
+import axios from "axios";
+
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://github.com/96sMicks/WorldWide-Millionaire-">
+        WWM
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -28,16 +29,54 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignUp() {
-  const handleSubmit = (event) => {
+export default function SignUp(props) {
+
+  const {switchToLogin, handleClose} = props
+  const [error, setError] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [errMsg, setErrMsg] = useState('Something went wrong.')
+
+  const nameRef = useRef()
+  const emailRef = useRef()
+  const passwordRef = useRef()
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   // eslint-disable-next-line no-console
+  //   console.log({
+  //     email: data.get('email'),
+  //     password: data.get('password'),
+  //   });
+  // };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const newUser = {
+        name:nameRef.current.value,
+        email:emailRef.current.value,
+        password:passwordRef.current.value,
+    }
+
+    try {
+        const res = await axios.post("/api/users/register", newUser)
+        console.log(res);
+        setError(false)
+        setSuccess(true)
+      } catch (err) {
+          console.log(err.response.data.msg);
+          setSuccess(false)
+          setError(true)
+          setErrMsg(err.response.data.msg)
+      }
+
   };
+
+    // for swapping log in modal to sign up modal
+    const handleSwap = () => {
+      switchToLogin(true)
+      handleClose()
+    }
 
   return (
     <ThemeProvider theme={theme}>
@@ -59,25 +98,15 @@ export default function SignUp() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
+                  id="name"
+                  label="Name"
+                  name="name"
+                  autoComplete="name"
+                  inputRef={nameRef}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -88,6 +117,7 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  inputRef={emailRef}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -99,12 +129,7 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  inputRef={passwordRef}
                 />
               </Grid>
             </Grid>
@@ -116,9 +141,11 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
+            {success && <Alert severity="success">Successfully registered. Please proceed to log in.</Alert>}
+            {error && <Alert severity="error">{errMsg}</Alert>}
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link component="button" type="button" variant="body2" onClick={handleSwap}>
                   Already have an account? Sign in
                 </Link>
               </Grid>

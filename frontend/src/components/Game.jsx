@@ -1,5 +1,4 @@
-import React, { useState } from "react";import { useEffect } from "react";
-
+import React, { useState,useEffect } from "react";
 
 export default function Game(props) {
   const { onStart, questionNumber, continent, state } = props;

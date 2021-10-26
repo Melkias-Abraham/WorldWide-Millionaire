@@ -41,12 +41,18 @@ module.exports = ({
         } = req.body;
         const hashedPassword = bcrypt.hashSync(password, 10);
 
+        if (name === "" ||email === "" || password === "") {
+            return res.status(401).json({
+                msg: "Fields cannot be blank."
+            });
+        }
+
 
         getUserByEmail(email)
             .then(user => {
 
                 if (user) {
-                    res.json({
+                    res.status(401).json({
                         msg: 'Sorry, a user account with this email already exists'
                     });
                 } else {
@@ -66,14 +72,19 @@ module.exports = ({
             email,
             password
         } = req.body;
-        const hashedPassword = bcrypt.hashSync(password, 10);
 
+
+        if (email === "" || password === "") {
+            return res.status(401).json({
+                msg: "Fields cannot be blank."
+            });
+        }
 
         authenticateUser(email, password)
             .then(user => {
 
                 if (!user) {
-                    res.json({
+                    res.status(401).json({
                         msg: 'Wrong username or password'
                     });
                 } else {

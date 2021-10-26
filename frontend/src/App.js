@@ -5,7 +5,6 @@ import ReactTooltip from "react-tooltip";
 
 import MapChart from "./components/MapChart";
 import Game from "./components/Game";
-import Register from "./components/Register";
 
 
 const App = () => {
@@ -14,6 +13,8 @@ const App = () => {
     id: "",
   });
   const [questionNumber, setQuestionNumber] = useState(1);
+  const storage = window.localStorage;
+  const [currentUser, setCurrentUser] = useState(storage.getItem("user")); 
 
   const {
     state,
@@ -45,6 +46,9 @@ const App = () => {
       {start !== "started" ? (
         <div className="map">
           <MapChart
+            setCurrentUser={setCurrentUser}
+            currentUser={currentUser} 
+            storage={storage}
             setStart={setStart}
             continent={continent}
             setContinent={setContinent}
@@ -54,10 +58,9 @@ const App = () => {
         </div>
       ) : (
         <div>
-          <Game questionNumber={questionNumber} state={state} continent={continent} onStart={getQuestions} />
+          <Game questionNumber={questionNumber} state={state} continent={continent} onStart={getQuestions}/>
         </div>
       )}
-      {/* <Register/> */}
     </div>
   );
 };
