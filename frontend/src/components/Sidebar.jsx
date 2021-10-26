@@ -12,22 +12,16 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import Alert from '@mui/material/Alert';
+import Alert from "@mui/material/Alert";
 
 const drawerWidth = 400;
 
 export default function Sidebar(props) {
-  const {
-    continent,
-    setStart,
-    storage,
-    currentUser,
-    setCurrentUser,
-  } = props;
+  const { continent, setStart, storage, currentUser, setCurrentUser } = props;
 
   const [openLogin, setOpenLogin] = useState(false);
   const [openSignup, setOpenSignup] = useState(false);
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
 
   const handleOpenSingup = () => {
     setOpenSignup(true);
@@ -43,20 +37,20 @@ export default function Sidebar(props) {
   };
   const handleLogout = () => {
     storage.removeItem("user");
-    setCurrentUser(null)
-  }
+    setCurrentUser(null);
+  };
 
   const handleStartGame = () => {
-    if(!currentUser) {
-      setError(false) 
-      return setOpenLogin(true)
+    if (!currentUser) {
+      setError(false);
+      return setOpenLogin(true);
     }
-    if(!continent){
-      return setError(true) 
+    if (!continent) {
+      return setError(true);
     }
     setStart("started");
-    setError(false) 
-  }
+    setError(false);
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -70,7 +64,12 @@ export default function Sidebar(props) {
             Select a continent to continue
           </Typography>
           {currentUser ? (
-            <Button variant="outlined" color="error" onClick={handleLogout} className="logout">
+            <Button
+              variant="outlined"
+              color="error"
+              onClick={handleLogout}
+              className="logout"
+            >
               Logout
             </Button>
           ) : (
@@ -132,7 +131,7 @@ export default function Sidebar(props) {
           </Button>
         </div>
         <div>
-        {error && <Alert severity="error">Please select a continent</Alert>}
+          {error && <Alert severity="error">Please select a continent</Alert>}
         </div>
       </Drawer>
     </Box>
