@@ -6,10 +6,11 @@
 
 .main {
   width: 80%;
-  background-image: url(../game.png);
+  background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url(../game.png);
   width: 80%;
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: cover;
 }
 
 .top {
