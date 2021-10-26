@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo } from "react";
 import "./MapChart.css";
 import geoData from "../assets/continents.json";
 import {

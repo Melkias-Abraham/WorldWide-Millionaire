@@ -178,7 +178,7 @@ export default function Sidebar(props) {
       </div>
       <div>
         {sidebarError && (
-          <Alert severity="error">Please select a continent</Alert>
+          <Alert severity="error" sx={{ m: "40px", width: "70%"}} >Select a continent to play.</Alert>
         )}
       </div>
     </div>

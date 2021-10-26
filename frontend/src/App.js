@@ -4,7 +4,6 @@ import useApplicationData from "./hooks/useApplicationData";
 import ReactTooltip from "react-tooltip";
 
 import MapChart from "./components/MapChart";
-import Game from "./components/Game";
 import Trivia from "./components/Trivia";
 
 const App = () => {
