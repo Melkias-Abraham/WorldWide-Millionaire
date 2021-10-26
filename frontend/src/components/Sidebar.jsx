@@ -132,7 +132,7 @@ export default function Sidebar(props) {
           </Button>
         </div>
         <div>
-        {error && <Alert severity="error">'Please select a continent'</Alert>}
+        {error && <Alert severity="error">Please select a continent</Alert>}
         </div>
       </Drawer>
     </Box>
