@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
+import Alert from '@mui/material/Alert';
 
 const drawerWidth = 400;
 
@@ -26,6 +27,7 @@ export default function Sidebar(props) {
 
   const [openLogin, setOpenLogin] = useState(false);
   const [openSignup, setOpenSignup] = useState(false);
+  const [error, setError] = useState(false)
 
   const handleOpenSingup = () => {
     setOpenSignup(true);
@@ -42,6 +44,18 @@ export default function Sidebar(props) {
   const handleLogout = () => {
     storage.removeItem("user");
     setCurrentUser(null)
+  }
+
+  const handleStartGame = () => {
+    if(!currentUser) {
+      setError(false) 
+      return setOpenLogin(true)
+    }
+    if(!continent){
+      return setError(true) 
+    }
+    setStart("started");
+    setError(false) 
   }
 
   return (
@@ -113,9 +127,12 @@ export default function Sidebar(props) {
           <h4>Currently selected:</h4> <p>{continent || "None"}</p>
         </div>
         <div>
-          <Button variant="contained" onClick={() => setStart("started")}>
+          <Button variant="contained" onClick={handleStartGame}>
             Start Game
           </Button>
+        </div>
+        <div>
+        {error && <Alert severity="error">'Please select a continent'</Alert>}
         </div>
       </Drawer>
     </Box>
