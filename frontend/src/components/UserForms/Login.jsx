@@ -10,9 +10,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Alert from '@mui/material/Alert';
+import Alert from "@mui/material/Alert";
 import axios from "axios";
-
 
 function Copyright(props) {
   return (
@@ -38,45 +37,41 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function LogIn(props) {
+  const { switchToSignUp, handleClose, storage, setCurrentUser } = props;
+  const [error, setError] = useState(false);
+  const [errMsg, setErrMsg] = useState("Something went wrong.");
 
-  const {switchToSignUp, handleClose, storage, setCurrentUser} = props
-  const [error, setError] = useState(false)
-  const [errMsg, setErrMsg] = useState('Something went wrong.')
-
-
-  const emailRef = useRef()
-  const passwordRef = useRef()
-
+  // track the user inputs
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const user = {
-        email:emailRef.current.value,
-        password:passwordRef.current.value,
-    }
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    };
 
     try {
-        const res = await axios.post("/api/users/login", user)
-        if(!res.data.name) {
-           return setError(true)
-        }
-        storage.setItem("user", res.data.name )
-        setCurrentUser(res.data.name)
-        handleClose()
-        setError(false)
-      } catch (err) {
-          setError(true)
-          setErrMsg(err.response.data.msg)
+      const res = await axios.post("/api/users/login", user);
+      if (!res.data.name) {
+        return setError(true);
       }
-
+      storage.setItem("user", res.data.name);
+      setCurrentUser(res.data.name);
+      handleClose();
+      setError(false);
+    } catch (err) {
+      setError(true);
+      setErrMsg(err.response.data.msg);
+    }
   };
-
 
   // for swapping log in modal to sign up modal
   const handleSwap = () => {
-    switchToSignUp(true)
-    handleClose()
-  }
+    switchToSignUp(true);
+    handleClose();
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -137,8 +132,13 @@ export default function LogIn(props) {
             </Button>
             {error && <Alert severity="error">{errMsg}</Alert>}
             <Grid container justifyContent="flex-end">
-              <Grid item >
-                <Link component="button" type="button" variant="body2" onClick={handleSwap}>
+              <Grid item>
+                <Link
+                  component="button"
+                  type="button"
+                  variant="body2"
+                  onClick={handleSwap}
+                >
                   Don't have an account? Sign up
                 </Link>
               </Grid>
