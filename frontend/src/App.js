@@ -14,12 +14,7 @@ const App = () => {
   });
   const [questionNumber, setQuestionNumber] = useState(1);
 
-  const {
-    state,
-    dispatch,
-    getQuestions
-  } = useApplicationData();
-
+  const { state, dispatch, getQuestions } = useApplicationData();
 
   // being used by react tooltip (the hover effect that shows the continent name)
   const [content, setContent] = useState("");
@@ -30,17 +25,12 @@ const App = () => {
   // console.log(state);
   return (
     <div className="App">
-
-
-
-      {
-      /* 
+      {/* 
       - gonna need to change Game component to our real Trivia/Question display component
       - for now, check if 'start' is equal to started, and if not show map - otherwise go to game page (<Game/>)
       - will 'start' to log in user later
       
-      */
-      }
+      */}
       {start !== "started" ? (
         <div className="map">
           <MapChart
@@ -54,11 +44,15 @@ const App = () => {
       ) : (
         <div>
           {/* <Game questionNumber={questionNumber} state={state} continent={continent} onStart={getQuestions} /> */}
-          { <Trivia
-           questionNumber={questionNumber}
-          state={state}
-           continent={continent}
-            onStart={getQuestions} setQuestionNumber={setQuestionNumber} />}
+          {
+            <Trivia
+              questionNumber={questionNumber}
+              state={state}
+              continent={continent}
+              onStart={getQuestions}
+              setQuestionNumber={setQuestionNumber}
+            />
+          }
         </div>
       )}
     </div>
@@ -66,4 +60,3 @@ const App = () => {
 };
 
 export default App;
-
