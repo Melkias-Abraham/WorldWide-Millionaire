@@ -5,7 +5,7 @@ import ReactTooltip from "react-tooltip";
 
 import MapChart from "./components/MapChart";
 import Game from "./components/Game";
-
+import Trivia from "./components/Trivia";
 
 const App = () => {
   const [continent, setContinent] = useState({
@@ -14,14 +14,9 @@ const App = () => {
   });
   const [questionNumber, setQuestionNumber] = useState(1);
   const storage = window.localStorage;
-  const [currentUser, setCurrentUser] = useState(storage.getItem("user")); 
+  const [currentUser, setCurrentUser] = useState(storage.getItem("user"));
 
-  const {
-    state,
-    dispatch,
-    getQuestions
-  } = useApplicationData();
-
+  const { state, dispatch, getQuestions } = useApplicationData();
 
   // being used by react tooltip (the hover effect that shows the continent name)
   const [content, setContent] = useState("");
@@ -32,22 +27,17 @@ const App = () => {
   // console.log(state);
   return (
     <div className="App">
-
-
-
-      {
-      /* 
+      {/* 
       - gonna need to change Game component to our real Trivia/Question display component
       - for now, check if 'start' is equal to started, and if not show map - otherwise go to game page (<Game/>)
       - will 'start' to log in user later
       
-      */
-      }
+      */}
       {start !== "started" ? (
         <div className="map">
           <MapChart
             setCurrentUser={setCurrentUser}
-            currentUser={currentUser} 
+            currentUser={currentUser}
             storage={storage}
             setStart={setStart}
             continent={continent}
@@ -58,7 +48,13 @@ const App = () => {
         </div>
       ) : (
         <div>
-          <Game questionNumber={questionNumber} state={state} continent={continent} onStart={getQuestions}/>
+          <Trivia
+            questionNumber={questionNumber}
+            state={state}
+            continent={continent}
+            onStart={getQuestions}
+            setQuestionNumber={setQuestionNumber}
+          />
         </div>
       )}
     </div>
@@ -66,4 +62,3 @@ const App = () => {
 };
 
 export default App;
-
