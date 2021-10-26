@@ -47,7 +47,7 @@ const authenticateUser = (email, password) => {
         return user;
       }
       return null;
-    });
+    }).catch(err => err);
   };
 
   const getUsersPosts = () => {

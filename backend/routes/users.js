@@ -52,7 +52,7 @@ module.exports = ({
             .then(user => {
 
                 if (user) {
-                    res.status(401).json({
+                    return res.status(401).json({
                         msg: 'Sorry, a user account with this email already exists'
                     });
                 } else {
@@ -93,9 +93,7 @@ module.exports = ({
 
             })
             .then(newUser => res.json(newUser))
-            .catch(err => res.json({
-                error: err.message
-            }));
+            .catch(err => err);
 
     })
 
