@@ -4,6 +4,9 @@ import ReactTooltip from "react-tooltip";
 import StateProvider from "./providers/StateProvider";
 import MapChart from "./components/MapChart";
 import Trivia from "./components/Trivia";
+import Leaderboard from "./components/Leaderboard";
+
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const App = () => {
   const [questionNumber, setQuestionNumber] = useState(1);
@@ -24,12 +27,18 @@ const App = () => {
       
       */}
       <StateProvider>
+        <Router>
+          <Switch>
+            <Route path="/scores">
+              <Leaderboard myProp="something" />
+            </Route>
+          </Switch>
+        </Router>
+      </StateProvider>
+      {/* <StateProvider>
         {start !== "started" ? (
           <div className="map">
-            <MapChart
-              setStart={setStart}
-              setTooltipContent={setContent}
-            />
+            <MapChart setStart={setStart} setTooltipContent={setContent} />
             <ReactTooltip>{content}</ReactTooltip>
           </div>
         ) : (
@@ -40,7 +49,7 @@ const App = () => {
             />
           </div>
         )}
-      </StateProvider>
+      </StateProvider> */}
     </div>
   );
 };

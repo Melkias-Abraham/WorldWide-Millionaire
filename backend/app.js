@@ -7,6 +7,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var gamersRouter = require('./routes/gamers');
 const questionsRouter = require('./routes/questions')
+const scoresRouter = require('./routes/scores')
 
 const db = require('./db')
 const dbHelpers = require('./helpers/dbHelpers')(db);
@@ -25,6 +26,7 @@ app.use('/', indexRouter);
 app.use('/api/users', usersRouter(dbHelpers));
 app.use('/api/gamers', gamersRouter(dbHelpers));
 app.use('/api/questions', questionsRouter(dbHelpers));
+app.use('/api/scores', scoresRouter(dbHelpers));
 
 
 const port = process.env.PORT || 3001; 

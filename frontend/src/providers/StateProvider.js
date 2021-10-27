@@ -3,6 +3,7 @@ import dataReducer, {
   SET_USERS,
   SET_QUESTIONS,
   SET_CONTINENT,
+  GET_SCORES,
 } from "../reducers/dataReducers";
 import axios from "axios";
 
@@ -31,6 +32,18 @@ export default function StateProvider(props) {
     })
   };
 
+  const getScores = () => {
+    return axios.get('api/scores').then((scores)=>{
+      console.log(scores);
+      dispatch({
+        type: GET_SCORES,
+        scores: scores.data
+      })
+    })
+  }
+
+  
+
   useEffect(() => {
     axios({
             method: 'GET',
@@ -54,7 +67,8 @@ export default function StateProvider(props) {
     state,
     dispatch,
     getQuestions,
-    getContinent
+    getContinent,
+    getScores
   };
 
 

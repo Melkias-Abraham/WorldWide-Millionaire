@@ -22,6 +22,7 @@ const getPostsByUsers = (usersPosts) => {
   return Object.values(postsByUsers);
 };
 
+
 module.exports = {
   getPostsByUsers,
 };
