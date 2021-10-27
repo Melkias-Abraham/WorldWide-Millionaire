@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useContext } from "react";
 import "./MapChart.css";
 import geoData from "../assets/continents.json";
 import {
@@ -8,26 +8,25 @@ import {
   Geography,
 } from "react-simple-maps";
 import Sidebar from "./Sidebar";
+import { stateContext } from "../providers/StateProvider";
 
 const MapChart = (props) => {
-  const { setTooltipContent, setStart, continent, setContinent, storage, setCurrentUser, currentUser  } = props;
+  const { setTooltipContent, setStart} = props;
+  const {getContinent, state} = useContext(stateContext)
 
   const onContinentClick = (continentName) => {
-    setContinent({
-      name: continentName.continent,
-      id: continentName.id,
-    });
+    getContinent(continentName)
   };
 
   return (
     <>
-      <Sidebar storage={storage} currentUser={currentUser} setCurrentUser={setCurrentUser}  setStart={setStart} continent={continent.name} />
+      <Sidebar setStart={setStart} continent={state.continent && state.continent.name} />
       <ComposableMap data-tip="" projectionConfig={{ scale: 270 }}>
         <ZoomableGroup>
           <Geographies geography={geoData}>
             {({ geographies }) =>
               geographies.map((geo) => {
-                const isClicked = continent.name === geo.properties.continent;
+                const isClicked = state.continent && state.continent.name === geo.properties.continent;
                 return (
                   <Geography
                     key={geo.rsmKey}

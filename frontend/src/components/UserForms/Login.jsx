@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,6 +12,8 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Alert from "@mui/material/Alert";
 import axios from "axios";
+import { authContext } from '../../providers/AuthProviders'
+
 
 function Copyright(props) {
   return (
@@ -37,9 +39,10 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function LogIn(props) {
-  const { switchToSignUp, handleClose, storage, setCurrentUser } = props;
+  const { switchToSignUp, handleClose } = props;
   const [error, setError] = useState(false);
   const [errMsg, setErrMsg] = useState("Something went wrong.");
+  const { login } = useContext(authContext);
 
   // track the user inputs
   const emailRef = useRef();
@@ -53,12 +56,7 @@ export default function LogIn(props) {
     };
 
     try {
-      const res = await axios.post("/api/users/login", user);
-      if (!res.data.name) {
-        return setError(true);
-      }
-      storage.setItem("user", res.data.name);
-      setCurrentUser(res.data.name);
+      login(user)
       handleClose();
       setError(false);
     } catch (err) {

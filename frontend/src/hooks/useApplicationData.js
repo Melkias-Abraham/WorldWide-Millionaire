@@ -4,7 +4,8 @@ import {
 } from 'react';
 import dataReducer, {
   SET_USERS,
-  SET_QUESTIONS
+  SET_QUESTIONS,
+  SET_CONTINENT
 } from '../reducers/dataReducers';
 import axios from 'axios';
 
@@ -22,6 +23,14 @@ const useApplicationData = () => {
     });
     });
   };
+
+  const getContinent = (continentName) => {
+    return dispatch({
+      type: SET_CONTINENT,
+      name: continentName.continent,
+      id: continentName.id
+    })
+  }
 
   useEffect(() => {
       axios({
@@ -43,7 +52,8 @@ const useApplicationData = () => {
   return {
       state,
       dispatch,
-      getQuestions
+      getQuestions,
+      getContinent
   };
 };
 

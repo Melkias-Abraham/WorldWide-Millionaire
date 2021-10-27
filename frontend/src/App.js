@@ -1,21 +1,12 @@
 import React, { useState } from "react";
 import "./App.css";
-import useApplicationData from "./hooks/useApplicationData";
 import ReactTooltip from "react-tooltip";
-
+import StateProvider from "./providers/StateProvider";
 import MapChart from "./components/MapChart";
 import Trivia from "./components/Trivia";
 
 const App = () => {
-  const [continent, setContinent] = useState({
-    name: "",
-    id: "",
-  });
   const [questionNumber, setQuestionNumber] = useState(1);
-  const storage = window.localStorage;
-  const [currentUser, setCurrentUser] = useState(storage.getItem("user"));
-
-  const { state, dispatch, getQuestions } = useApplicationData();
 
   // being used by react tooltip (the hover effect that shows the continent name)
   const [content, setContent] = useState("");
@@ -32,30 +23,24 @@ const App = () => {
       - will 'start' to log in user later
       
       */}
-      {start !== "started" ? (
-        <div className="map">
-          <MapChart
-            setCurrentUser={setCurrentUser}
-            currentUser={currentUser}
-            storage={storage}
-            setStart={setStart}
-            continent={continent}
-            setContinent={setContinent}
-            setTooltipContent={setContent}
-          />
-          <ReactTooltip>{content}</ReactTooltip>
-        </div>
-      ) : (
-        <div>
-          <Trivia
-            questionNumber={questionNumber}
-            state={state}
-            continent={continent}
-            onStart={getQuestions}
-            setQuestionNumber={setQuestionNumber}
-          />
-        </div>
-      )}
+      <StateProvider>
+        {start !== "started" ? (
+          <div className="map">
+            <MapChart
+              setStart={setStart}
+              setTooltipContent={setContent}
+            />
+            <ReactTooltip>{content}</ReactTooltip>
+          </div>
+        ) : (
+          <div>
+            <Trivia
+              questionNumber={questionNumber}
+              setQuestionNumber={setQuestionNumber}
+            />
+          </div>
+        )}
+      </StateProvider>
     </div>
   );
 };

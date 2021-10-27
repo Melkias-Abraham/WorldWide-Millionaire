@@ -1,16 +1,20 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./Trivia.css";
-
+import { stateContext } from "../providers/StateProvider";
 
 export default function Trivia(props) {
 
-  const { onStart, questionNumber, continent, state, setQuestionNumber } = props;
+  const { questionNumber, setQuestionNumber } = props;
   const [question, setQuestion] = useState(null);
   const [selectedAnswer, setselectedAnswer] = useState(null)
   const [className, setClassName] = useState("answer")
   const [remainingTime, setRemainingTime] = useState(30)
 
+  const {state, getQuestions} = useContext(stateContext);
+
+  const continent = state.continent && state.continent;
+  console.log(state);
   useEffect(() => {
     setInterval(() => {
       setRemainingTime((prev) => prev - 1)
@@ -18,9 +22,10 @@ export default function Trivia(props) {
   }, [])
 
   useEffect(() => {
-    onStart(continent.id);
+    getQuestions(continent.id);
   }, [continent]);
 
+  console.log(state);
   useEffect(() => {
     if (!state.questions) return <span>loading...</span>;
     setQuestion(state.questions[questionNumber - 1]);

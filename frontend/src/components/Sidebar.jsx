@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,17 +14,25 @@ import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuIcon from "@mui/icons-material/Menu";
+import { authContext } from "../providers/AuthProviders";
+import Snackbar from "@mui/material/Snackbar";
+import { stateContext } from "../providers/StateProvider";
 
 
 const drawerWidth = 400;
 
 export default function Sidebar(props) {
-  const { continent, setStart, storage, currentUser, setCurrentUser, window } =
-    props;
+  const { setStart, window } = props;
+  const { logout, user } = useContext(authContext);
+  const {state} = useContext(stateContext);
+
+  const continent = state.continent && state.continent.name;
+  console.log("continent from sidebar",continent);
 
   const [openLogin, setOpenLogin] = useState(false);
   const [openSignup, setOpenSignup] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [sidebarError, setSidebarError] = useState(false);
 
   // menu login/logut items
@@ -56,8 +64,7 @@ export default function Sidebar(props) {
     setOpenSignup(false);
   };
   const handleLogout = () => {
-    storage.removeItem("user");
-    setCurrentUser(null);
+    logout();
   };
 
   // responsiveness click handlers
@@ -74,8 +81,12 @@ export default function Sidebar(props) {
 
   // Start game click handlers
   const handleStartGame = () => {
-    if (!currentUser) {
+    if (!user) {
       setSidebarError(false);
+      setOpenSnackbar(true);
+      setTimeout(() => {
+        setOpenSnackbar(false);
+      }, 3000);
       return setOpenLogin(true);
     }
     if (!continent) {
@@ -126,7 +137,7 @@ export default function Sidebar(props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {currentUser
+      {user
         ? [
             <MenuItem>
               <Button color="error" onClick={handleLogout} className="logout">
@@ -178,7 +189,9 @@ export default function Sidebar(props) {
       </div>
       <div>
         {sidebarError && (
-          <Alert severity="error" sx={{ m: "40px", width: "70%"}} >Select a continent to play.</Alert>
+          <Alert severity="error" sx={{ m: "40px", width: "70%" }}>
+            Select a continent to play.
+          </Alert>
         )}
       </div>
     </div>
@@ -187,6 +200,14 @@ export default function Sidebar(props) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+      >
+        <Alert severity="warning" sx={{ width: "100%" }}>
+          Please login first.
+        </Alert>
+      </Snackbar>
       <AppBar
         position="fixed"
         sx={{
@@ -195,12 +216,12 @@ export default function Sidebar(props) {
         }}
       >
         <Toolbar>
-        <IconButton
+          <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2, display: { sm: "none" } }}
           >
             <MenuIcon />
           </IconButton>
@@ -209,7 +230,7 @@ export default function Sidebar(props) {
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            {currentUser
+            {user
               ? [
                   <MenuItem>
                     <Button
@@ -261,8 +282,6 @@ export default function Sidebar(props) {
           switchToLogin={setOpenLogin}
         />
         <LoginModalDialog
-          setCurrentUser={setCurrentUser}
-          storage={storage}
           open={openLogin}
           switchToSignUp={setOpenSignup}
           handleClose={handleLoginClose}
@@ -270,7 +289,6 @@ export default function Sidebar(props) {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-
 
       {/* {mobile drawer} */}
       <Drawer
@@ -288,7 +306,6 @@ export default function Sidebar(props) {
       >
         {drawer}
       </Drawer>
-
 
       {/* {desktop draw} */}
       <Drawer
