@@ -17,11 +17,22 @@ const App = () => {
 
   const { state, dispatch, getQuestions } = useApplicationData();
 
+  // being used to set the game to stop if question answered wrong
+  const [stop, setStop] = useState(false)
+
   // being used by react tooltip (the hover effect that shows the continent name)
   const [content, setContent] = useState("");
 
   // using setStart as a temporary way to transition from map to question page -- will need to change later to check for user --
   const [start, setStart] = useState("");
+
+  const [earned, setEarned] = useState(0)
+
+  // Used for displaying money once game ends
+  const getEarnings = (earnings) => {
+    setEarned(earnings)
+  }
+
 
   // console.log(state);
   return (
@@ -32,6 +43,8 @@ const App = () => {
       - will 'start' to log in user later
       
       */}
+      {stop ? <h1 className="endGame"> You earned: {earned} </h1> : 
+    <React.Fragment>
       {start !== "started" ? (
         <div className="map">
           <MapChart
@@ -53,9 +66,13 @@ const App = () => {
             continent={continent}
             onStart={getQuestions}
             setQuestionNumber={setQuestionNumber}
+            setStop={setStop}
+            setEarned={setEarned}
+            getEarnings={getEarnings}
           />
         </div>
       )}
+      </React.Fragment>}
     </div>
   );
 };
