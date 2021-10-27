@@ -28,7 +28,6 @@ export default function Sidebar(props) {
   const {state} = useContext(stateContext);
 
   const continent = state.continent && state.continent.name;
-  console.log("continent from sidebar",continent);
 
   const [openLogin, setOpenLogin] = useState(false);
   const [openSignup, setOpenSignup] = useState(false);

@@ -64,6 +64,7 @@ export default function Trivia(props) {
     { id: 2, amount: "$ 500" },
     { id: 1, amount: "$ 100" }
   ];
+  
 
   return (
     <div className="trivia">
