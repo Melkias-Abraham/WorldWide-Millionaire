@@ -33,10 +33,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
 export default function Leaderboard() {
 
     const {state, getScores} = useContext(stateContext);
@@ -45,8 +41,9 @@ export default function Leaderboard() {
         getScores()
       }, []);
 
-    const scores = state.scores;
-    console.log(scores);
+    if (!state.scores) return <span>loading..</span>
+    const scores = state.scores && state.scores;
+    console.log(state);
 
   return (
     <Container sx={{mt: '6rem'}} className="container" maxWidth="lg">

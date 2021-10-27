@@ -18,6 +18,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { authContext } from "../providers/AuthProviders";
 import Snackbar from "@mui/material/Snackbar";
 import { stateContext } from "../providers/StateProvider";
+import { useHistory } from "react-router-dom";
+
 
 const drawerWidth = 400;
 
@@ -25,6 +27,8 @@ export default function Sidebar(props) {
   const { setStart, window } = props;
   const { logout, user } = useContext(authContext);
   const { state } = useContext(stateContext);
+  const history = useHistory();
+
 
   const continent = state.continent && state.continent.name;
 
@@ -90,7 +94,7 @@ export default function Sidebar(props) {
     if (!continent) {
       return setSidebarError(true);
     }
-    setStart("started");
+    history.push('/game')
     setSidebarError(false);
   };
 

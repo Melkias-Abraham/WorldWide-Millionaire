@@ -2,26 +2,36 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import "./Trivia.css";
 import { stateContext } from "../providers/StateProvider";
+import { useHistory } from "react-router-dom";
+
 
 export default function Trivia(props) {
 
-  const { questionNumber, setQuestionNumber } = props;
+  const { questionNumber, setQuestionNumber, setStop, setEarned } = props;
   const [question, setQuestion] = useState(null);
   const [selectedAnswer, setselectedAnswer] = useState(null)
   const [className, setClassName] = useState("answer")
   const [remainingTime, setRemainingTime] = useState(30)
+  const history = useHistory();
 
-  const {state, getQuestions} = useContext(stateContext);
+  const {state, getQuestions, user} = useContext(stateContext);
 
   const continent = state.continent && state.continent;
-  console.log(state);
+  
   useEffect(() => {
-    setInterval(() => {
+        const interval = setInterval(() => {
       setRemainingTime((prev) => prev - 1)
     }, 1000)
-  }, [])
+
+    if(remainingTime === 0 ) {
+      return setStop(true);
+    }
+   return () => clearInterval(interval)
+  }, [setStop, remainingTime])
 
   useEffect(() => {
+
+    if(!continent) return history.replace('/')
     getQuestions(continent.id);
   }, [continent]);
 
@@ -30,6 +40,10 @@ export default function Trivia(props) {
     if (!state.questions) return <span>loading...</span>;
     setQuestion(state.questions[questionNumber - 1]);
   }, [state.questions, questionNumber]);
+
+  useEffect(() => {
+    questionNumber > 1 && setEarned(moneyAmounts.find(money => money.id === questionNumber -1).amount)
+  }, [questionNumber])
 
   const delay = (duration, cb) => {
     setTimeout(() => {
@@ -48,6 +62,11 @@ export default function Trivia(props) {
     delay(6000, () => {
       if (ans.correct) {
         setQuestionNumber((prev) => prev + 1)
+        setselectedAnswer(null)
+        setRemainingTime(30)
+      } else {
+        setStop(true)
+        
       }
     })
   }
@@ -68,6 +87,8 @@ export default function Trivia(props) {
 
   return (
     <div className="trivia">
+    
+      
       <div className="main">
 
 
@@ -80,7 +101,7 @@ export default function Trivia(props) {
 
           <div className="answers">
             {question?.answers[0].map((answer) => (
-              <div className={selectedAnswer === answer ? className : "answer"} onClick={() => handleClick(answer)}>
+              <div key={answer.id} className={selectedAnswer === answer ? className : "answer"} onClick={() => handleClick(answer)}>
                 {answer.answer}
               </div>
             ))}
@@ -99,6 +120,7 @@ export default function Trivia(props) {
         </ul>
       </div>
 
+     
     </div>
   );
 }

@@ -11,45 +11,78 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 const App = () => {
   const [questionNumber, setQuestionNumber] = useState(1);
 
+  // being used to set the game to stop if question answered wrong
+  const [stop, setStop] = useState(false);
+
   // being used by react tooltip (the hover effect that shows the continent name)
   const [content, setContent] = useState("");
 
   // using setStart as a temporary way to transition from map to question page -- will need to change later to check for user --
   const [start, setStart] = useState("");
 
+  const [earned, setEarned] = useState(0);
+
+  // Used for displaying money once game ends
+  const getEarnings = (earnings) => {
+    setEarned(earnings);
+  };
+
   // console.log(state);
   return (
     <div className="App">
-      {/* 
-      - gonna need to change Game component to our real Trivia/Question display component
-      - for now, check if 'start' is equal to started, and if not show map - otherwise go to game page (<Game/>)
-      - will 'start' to log in user later
-      
-      */}
       <StateProvider>
         <Router>
           <Switch>
             <Route path="/scores">
               <Leaderboard myProp="something" />
             </Route>
+            <Route exact path="/">
+              <div className="map">
+                <MapChart setStart={setStart} setTooltipContent={setContent} />
+                <ReactTooltip>{content}</ReactTooltip>
+              </div>
+            </Route>
+            <Route path="/game">
+              {stop ? (
+                <h1 className="endGame"> You earned: {earned} </h1>
+              ) : (
+                <Trivia
+                  questionNumber={questionNumber}
+                  setQuestionNumber={setQuestionNumber}
+                  setStop={setStop}
+                  setEarned={setEarned}
+                  getEarnings={getEarnings}
+                />
+              )}
+            </Route>
           </Switch>
         </Router>
       </StateProvider>
-      {/* <StateProvider>
-        {start !== "started" ? (
-          <div className="map">
-            <MapChart setStart={setStart} setTooltipContent={setContent} />
-            <ReactTooltip>{content}</ReactTooltip>
-          </div>
-        ) : (
-          <div>
-            <Trivia
-              questionNumber={questionNumber}
-              setQuestionNumber={setQuestionNumber}
-            />
-          </div>
-        )}
-      </StateProvider> */}
+
+      <StateProvider>
+      {stop ? <h1 className="endGame"> You earned: {earned} </h1> : 
+    <React.Fragment>
+      {start !== "started" ? (
+        <div className="map">
+          <MapChart
+            setStart={setStart}
+            setTooltipContent={setContent}
+          />
+          <ReactTooltip>{content}</ReactTooltip>
+        </div>
+      ) : (
+        <div>
+          <Trivia
+            questionNumber={questionNumber}
+            setQuestionNumber={setQuestionNumber}
+            setStop={setStop}
+            setEarned={setEarned}
+            getEarnings={getEarnings}
+          />
+        </div>
+      )}
+      </React.Fragment>}
+      </StateProvider>
     </div>
   );
 };
