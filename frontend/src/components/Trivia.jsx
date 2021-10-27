@@ -5,18 +5,25 @@ import "./Trivia.css";
 
 export default function Trivia(props) {
 
-  const { onStart, questionNumber, continent, state, setQuestionNumber, setStop } = props;
+  const { onStart, questionNumber, continent, state, setQuestionNumber, setStop, setEarned } = props;
+
   const [question, setQuestion] = useState(null);
   const [selectedAnswer, setselectedAnswer] = useState(null)
   const [className, setClassName] = useState("answer")
   const [remainingTime, setRemainingTime] = useState(30)
-  const [earned, setEarned] = useState(0)
+
 
   useEffect(() => {
-    setInterval(() => {
+    
+    const interval = setInterval(() => {
       setRemainingTime((prev) => prev - 1)
     }, 1000)
-  }, [])
+
+    if(remainingTime === 0 ) {
+      return setStop(true);
+    }
+   return () => clearInterval(interval)
+  }, [setStop, remainingTime])
 
   useEffect(() => {
     onStart(continent.id);
@@ -30,8 +37,6 @@ export default function Trivia(props) {
   useEffect(() => {
     questionNumber > 1 && setEarned(moneyAmounts.find(money => money.id === questionNumber -1).amount)
   }, [questionNumber])
-
-
 
   const delay = (duration, cb) => {
     setTimeout(() => {
@@ -54,7 +59,7 @@ export default function Trivia(props) {
         setRemainingTime(30)
       } else {
         setStop(true)
-        setEarned(earned)
+        
       }
     })
   }

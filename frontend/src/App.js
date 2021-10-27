@@ -28,6 +28,11 @@ const App = () => {
 
   const [earned, setEarned] = useState(0)
 
+  // Used for displaying money once game ends
+  const getEarnings = (earnings) => {
+    setEarned(earnings)
+  }
+
 
   // console.log(state);
   return (
@@ -39,7 +44,7 @@ const App = () => {
       
       */}
       {stop ? <h1 className="endGame"> You earned: {earned} </h1> : 
-    <>
+    <React.Fragment>
       {start !== "started" ? (
         <div className="map">
           <MapChart
@@ -63,10 +68,11 @@ const App = () => {
             setQuestionNumber={setQuestionNumber}
             setStop={setStop}
             setEarned={setEarned}
+            getEarnings={getEarnings}
           />
         </div>
       )}
-      </>}
+      </React.Fragment>}
     </div>
   );
 };
