@@ -10,7 +10,7 @@ export default function Trivia(props) {
   const [question, setQuestion] = useState(null);
   const [selectedAnswer, setselectedAnswer] = useState(null)
   const [className, setClassName] = useState("answer")
-  const [remainingTime, setRemainingTime] = useState(5)
+  const [remainingTime, setRemainingTime] = useState(30)
   const [pause, setPause] = useState(false)
   
 
