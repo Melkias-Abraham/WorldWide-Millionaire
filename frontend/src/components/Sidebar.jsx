@@ -19,13 +19,12 @@ import { authContext } from "../providers/AuthProviders";
 import Snackbar from "@mui/material/Snackbar";
 import { stateContext } from "../providers/StateProvider";
 
-
 const drawerWidth = 400;
 
 export default function Sidebar(props) {
   const { setStart, window } = props;
   const { logout, user } = useContext(authContext);
-  const {state} = useContext(stateContext);
+  const { state } = useContext(stateContext);
 
   const continent = state.continent && state.continent.name;
 
@@ -199,10 +198,7 @@ export default function Sidebar(props) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={6000}
-      >
+      <Snackbar open={openSnackbar} autoHideDuration={6000}>
         <Alert severity="warning" sx={{ width: "100%" }}>
           Please login first.
         </Alert>
