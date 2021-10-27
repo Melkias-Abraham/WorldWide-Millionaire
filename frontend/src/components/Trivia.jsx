@@ -5,7 +5,7 @@ import "./Trivia.css";
 
 export default function Trivia(props) {
 
-  const { onStart, questionNumber, continent, state, setQuestionNumber } = props;
+  const { onStart, questionNumber, continent, state, setQuestionNumber, setStop } = props;
   const [question, setQuestion] = useState(null);
   const [selectedAnswer, setselectedAnswer] = useState(null)
   const [className, setClassName] = useState("answer")
@@ -43,6 +43,9 @@ export default function Trivia(props) {
     delay(6000, () => {
       if (ans.correct) {
         setQuestionNumber((prev) => prev + 1)
+        setselectedAnswer(null)
+      } else {
+        setStop(true)
       }
     })
   }

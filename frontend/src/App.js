@@ -17,6 +17,8 @@ const App = () => {
 
   const { state, dispatch, getQuestions } = useApplicationData();
 
+  const [stop, setStop] = useState(false)
+
   // being used by react tooltip (the hover effect that shows the continent name)
   const [content, setContent] = useState("");
 
@@ -32,6 +34,8 @@ const App = () => {
       - will 'start' to log in user later
       
       */}
+      {stop ? <h1 className="endGame"> You earned: </h1> : 
+    <>
       {start !== "started" ? (
         <div className="map">
           <MapChart
@@ -53,9 +57,11 @@ const App = () => {
             continent={continent}
             onStart={getQuestions}
             setQuestionNumber={setQuestionNumber}
+            setStop={setStop}
           />
         </div>
       )}
+      </>}
     </div>
   );
 };
