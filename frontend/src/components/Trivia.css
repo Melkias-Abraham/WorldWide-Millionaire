@@ -6,7 +6,7 @@
 
 .main {
   width: 80%;
-  background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url(../game.png);
+  background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url(../addons/game.png);
   width: 80%;
   background-position: center;
   background-repeat: no-repeat;
@@ -142,13 +142,4 @@
   min-width: 100%;
   background-color: turquoise;
   border-radius: 10px;
-}
-
-.endGame {
-  position: relative;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto ;
 }

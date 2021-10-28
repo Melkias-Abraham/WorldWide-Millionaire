@@ -13,8 +13,6 @@ import { useHistory } from "react-router-dom";
 import Navbar from "./Navbar";
 import useAuthToggle from "../hooks/useAuthToggle";
 import { drawerContext } from "../providers/DrawerProvider";
-import MenuIcon from "@mui/icons-material/Menu";
-import IconButton from "@mui/material/IconButton";
 
 const drawerWidth = 400;
 

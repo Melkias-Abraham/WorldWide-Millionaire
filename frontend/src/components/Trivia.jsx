@@ -1,14 +1,25 @@
 import React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
+import useSound from "use-sound";
+import correct from "../addons/correct.wav";
+import idle from "../addons/idle.wav";
+import start from "../addons/start.wav";
+import wrong from "../addons/wrong.wav";
+
 import "./Trivia.css";
-import { stateContext } from "../providers/StateProvider";
-import { useHistory } from "react-router-dom";
-import { authContext } from "../providers/AuthProviders";
 import useGameLogic from "../hooks/useGameLogic";
 
 export default function Trivia(props) {
-
   const [className, setClassName] = useState("answer");
+
+  const [newGame] = useSound(start);
+  const [correctAnswer] = useSound(correct);
+  const [wrongAnswer] = useSound(wrong);
+  const [waiting] = useSound(idle);
+
+  useEffect(() => {
+    newGame();
+  }, [newGame]);
 
   const {
     remainingTime,
@@ -16,10 +27,8 @@ export default function Trivia(props) {
     moneyAmounts,
     questionNumber,
     selectedAnswer,
-    handleClick
-
-  } = useGameLogic(props, setClassName);
-
+    handleClick,
+  } = useGameLogic(props, setClassName, correctAnswer, wrongAnswer);
 
   return (
     <div className="trivia">

@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { stateContext } from "../providers/StateProvider";
 
 
-const useGameLogic = (props, setClassName) => {
+const useGameLogic = (props, setClassName, correctAnswer, wrongAnswer) => {
 const { questionNumber, setQuestionNumber, setStop } = props;
   const [question, setQuestion] = useState(null);
   const [selectedAnswer, setselectedAnswer] = useState(null);
@@ -71,11 +71,13 @@ const { questionNumber, setQuestionNumber, setStop } = props;
 
     delay(6000, () => {
       if (ans.correct) {
+        correctAnswer()
         setQuestionNumber((prev) => prev + 1);
         setselectedAnswer(null);
         setPause(false);
         setRemainingTime(30);
       } else {
+        wrongAnswer()
         setStop(true);
       }
     });

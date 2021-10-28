@@ -11,8 +11,6 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
 import { stateContext } from "../providers/StateProvider";
-import Navbar from "./Navbar";
-import { drawerContext } from "../providers/DrawerProvider";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
