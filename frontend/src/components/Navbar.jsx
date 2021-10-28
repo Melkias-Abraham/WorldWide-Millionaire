@@ -55,6 +55,7 @@ export default function Navbar() {
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
+            
           >
             <MenuIcon />
           </IconButton>

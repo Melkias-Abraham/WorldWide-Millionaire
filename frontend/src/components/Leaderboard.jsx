@@ -11,6 +11,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
 import { stateContext } from "../providers/StateProvider";
+import Navbar from "./Navbar";
+import { drawerContext } from "../providers/DrawerProvider";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -34,6 +36,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function Leaderboard() {
+
 
     const {state, getScores} = useContext(stateContext);
 
