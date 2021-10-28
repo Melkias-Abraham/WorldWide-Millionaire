@@ -58,31 +58,6 @@ const App = () => {
           </Switch>
         </Router>
       </StateProvider>
-
-      <StateProvider>
-      {stop ? <h1 className="endGame"> You earned: {earned} </h1> : 
-    <React.Fragment>
-      {start !== "started" ? (
-        <div className="map">
-          <MapChart
-            setStart={setStart}
-            setTooltipContent={setContent}
-          />
-          <ReactTooltip>{content}</ReactTooltip>
-        </div>
-      ) : (
-        <div>
-          <Trivia
-            questionNumber={questionNumber}
-            setQuestionNumber={setQuestionNumber}
-            setStop={setStop}
-            setEarned={setEarned}
-            getEarnings={getEarnings}
-          />
-        </div>
-      )}
-      </React.Fragment>}
-      </StateProvider>
     </div>
   );
 };

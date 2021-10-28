@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import "./Trivia.css";
 import { stateContext } from "../providers/StateProvider";
 import { useHistory } from "react-router-dom";
+import { authContext } from "../providers/AuthProviders";
 
 
 export default function Trivia(props) {
@@ -14,7 +15,8 @@ export default function Trivia(props) {
   const [remainingTime, setRemainingTime] = useState(30)
   const history = useHistory();
 
-  const {state, getQuestions, user} = useContext(stateContext);
+  const {state, getQuestions, setScores} = useContext(stateContext);
+  const { userId } = useContext(authContext);
 
   const continent = state.continent && state.continent;
   
@@ -42,7 +44,9 @@ export default function Trivia(props) {
   }, [state.questions, questionNumber]);
 
   useEffect(() => {
-    questionNumber > 1 && setEarned(moneyAmounts.find(money => money.id === questionNumber -1).amount)
+    const score = questionNumber > 1 && moneyAmounts.find(money => money.id === questionNumber -1).amount
+    setScores(userId, score)
+    questionNumber > 1 && setEarned(score)
   }, [questionNumber])
 
   const delay = (duration, cb) => {

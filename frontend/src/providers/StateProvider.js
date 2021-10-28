@@ -42,6 +42,16 @@ export default function StateProvider(props) {
     })
   }
 
+  const setScores = (userId, score) => {
+    return axios.post('api/scores', {userId, score}).then((scores)=>{
+     return console.log(scores);
+      // dispatch({
+      //   type: SET_SCORES,
+      //   scores: scores.data
+      // })
+  }).catch(err => err);
+}
+
   
 
   useEffect(() => {
@@ -68,7 +78,8 @@ export default function StateProvider(props) {
     dispatch,
     getQuestions,
     getContinent,
-    getScores
+    getScores,
+    setScores
   };
 
 

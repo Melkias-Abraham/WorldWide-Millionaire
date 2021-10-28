@@ -115,15 +115,26 @@ module.exports = (db) => {
   };
 
   const getScores = () => {
-
     const query = {
-        text: `SELECT * FROM games JOIN users ON games.user_id = users.id;`
-    }
+      text: `SELECT * FROM games JOIN users ON games.user_id = users.id;`,
+    };
     return db
       .query(query)
       .then((result) => result.rows)
       .catch((err) => err);
-  }
+  };
+
+  const upsertScores = (userId, score) => {
+    const query = {
+      text: `INSERT INTO games (user_id, score) VALUES ($1, $2) ON CONFLICT (user_id) DO UPDATE SET score=$2 RETURNING *`,
+      values: [userId, score],
+    };
+
+    return db
+      .query(query)
+      .then((result) => result.rows[0])
+      .catch((err) => err);
+  };
 
   return {
     getUsers,
@@ -134,6 +145,7 @@ module.exports = (db) => {
     getContinentBasedQuestions,
     getQuestionBasedAnswers,
     authenticateUser,
-    getScores
+    getScores,
+    upsertScores
   };
 };
