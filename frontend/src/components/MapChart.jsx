@@ -9,24 +9,29 @@ import {
 } from "react-simple-maps";
 import Sidebar from "./Sidebar";
 import { stateContext } from "../providers/StateProvider";
+import DrawerProvider from "../providers/DrawerProvider";
 
 const MapChart = (props) => {
-  const { setTooltipContent} = props;
-  const {getContinent, state} = useContext(stateContext)
+  const { setTooltipContent } = props;
+  const { getContinent, state } = useContext(stateContext);
 
   const onContinentClick = (continentName) => {
-    getContinent(continentName)
+    getContinent(continentName);
   };
 
   return (
     <>
-      <Sidebar/>
+      <DrawerProvider>
+        <Sidebar />
+      </DrawerProvider>
       <ComposableMap data-tip="" projectionConfig={{ scale: 270 }}>
         <ZoomableGroup>
           <Geographies geography={geoData}>
             {({ geographies }) =>
               geographies.map((geo) => {
-                const isClicked = state.continent && state.continent.name === geo.properties.continent;
+                const isClicked =
+                  state.continent &&
+                  state.continent.name === geo.properties.continent;
                 return (
                   <Geography
                     key={geo.rsmKey}

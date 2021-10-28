@@ -10,7 +10,7 @@ export default function Trivia(props) {
   const [question, setQuestion] = useState(null);
   const [selectedAnswer, setselectedAnswer] = useState(null);
   const [className, setClassName] = useState("answer");
-  const [remainingTime, setRemainingTime] = useState(6);
+  const [remainingTime, setRemainingTime] = useState(30);
   const history = useHistory();
 
   const { state, getQuestions, setScores, setEarned } =
@@ -69,7 +69,7 @@ export default function Trivia(props) {
       if (ans.correct) {
         setQuestionNumber((prev) => prev + 1);
         setselectedAnswer(null);
-        setRemainingTime(6);
+        setRemainingTime(30);
       } else {
         setStop(true);
       }
