@@ -44,7 +44,7 @@ const App = () => {
       - will 'start' to log in user later
       
       */}
-      {stop ? <h1 className="endGame"> You earned: {earned} </h1> : 
+      {stop ? <h1 className="App"> You earned: {earned} </h1> : 
     <React.Fragment>
       {start !== "started" ? (
         <div className="map">
