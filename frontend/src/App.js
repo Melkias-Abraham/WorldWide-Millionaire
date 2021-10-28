@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
+
 import useApplicationData from "./hooks/useApplicationData";
 import ReactTooltip from "react-tooltip";
 
