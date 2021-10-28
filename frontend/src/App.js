@@ -41,7 +41,7 @@ const App = () => {
             </Route>
             <Route path="/game">
               {stop ? (
-                <h1 className="endGame"> You earned: {state && state.earned} </h1>
+                <h1 className="endGame"> You earned: ${state && state.earned} </h1>
               ) : (
                 <Trivia
                   questionNumber={questionNumber}
