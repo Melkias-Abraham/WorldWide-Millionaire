@@ -11,18 +11,22 @@ export default function Trivia(props) {
   const [selectedAnswer, setselectedAnswer] = useState(null)
   const [className, setClassName] = useState("answer")
   const [remainingTime, setRemainingTime] = useState(30)
+  const [pause, setPause] = useState(false)
+  
 
 
   useEffect(() => {
     
-    const interval = setInterval(() => {
+    if (!pause) { 
+      const interval = setInterval(() => {
       setRemainingTime((prev) => prev - 1)
     }, 1000)
-
+  
     if(remainingTime === 0 ) {
       return setStop(true);
     }
    return () => clearInterval(interval)
+  } 
   }, [setStop, remainingTime])
 
   useEffect(() => {
@@ -47,6 +51,7 @@ export default function Trivia(props) {
   const handleClick = (ans) => {
     setselectedAnswer(ans);
     setClassName("answer active");
+    setPause(true)
 
     delay(3000, () => {
       setClassName(ans.correct ? "answer correct" : "answer wrong ")
@@ -56,10 +61,10 @@ export default function Trivia(props) {
       if (ans.correct) {
         setQuestionNumber((prev) => prev + 1)
         setselectedAnswer(null)
+        setPause(false)
         setRemainingTime(30)
       } else {
         setStop(true)
-        
       }
     })
   }
