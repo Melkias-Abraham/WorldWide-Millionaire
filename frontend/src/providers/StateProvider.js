@@ -4,6 +4,7 @@ import dataReducer, {
   SET_QUESTIONS,
   SET_CONTINENT,
   GET_SCORES,
+  SET_EARNED,
 } from "../reducers/dataReducers";
 import axios from "axios";
 
@@ -13,6 +14,7 @@ export default function StateProvider(props) {
   const [state, dispatch] = useReducer(dataReducer, {
     users: [],
     loading: true,
+    earned: 0
   });
 
   const getQuestions = (id) => {
@@ -32,9 +34,9 @@ export default function StateProvider(props) {
     })
   };
 
+  // get request for scores
   const getScores = () => {
     return axios.get('api/scores').then((scores)=>{
-      console.log(scores);
       dispatch({
         type: GET_SCORES,
         scores: scores.data
@@ -42,17 +44,19 @@ export default function StateProvider(props) {
     })
   }
 
+  // post request for scores
   const setScores = (userId, score) => {
     return axios.post('api/scores', {userId, score}).then((scores)=>{
-     return console.log(scores);
-      // dispatch({
-      //   type: SET_SCORES,
-      //   scores: scores.data
-      // })
+     return scores;
   }).catch(err => err);
 }
 
-  
+  const setEarned = (earned) => {
+    return dispatch({
+      type: SET_EARNED,
+      earned: earned
+    })
+  }
 
   useEffect(() => {
     axios({
@@ -79,7 +83,8 @@ export default function StateProvider(props) {
     getQuestions,
     getContinent,
     getScores,
-    setScores
+    setScores, 
+    setEarned
   };
 
 

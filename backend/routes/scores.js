@@ -24,13 +24,15 @@ module.exports = ({
             score
         } = req.body;
 
-        if (userId === "" || score === "" || !userId || !score) {
+
+        if (userId === "" || score === "" || !userId) {
             return res.status(401).json({
                 msg: "Fields cannot be blank."
             });
         }
 
-        upsertScores(userId, score)
+        const numScore = parseInt(score)
+        upsertScores(userId, numScore)
             .then(scoreData => {
                 if (!scoreData) {
                     res.status(401).json({

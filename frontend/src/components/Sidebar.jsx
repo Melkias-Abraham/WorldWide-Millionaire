@@ -24,7 +24,7 @@ import { useHistory } from "react-router-dom";
 const drawerWidth = 400;
 
 export default function Sidebar(props) {
-  const { setStart, window } = props;
+  const { window } = props;
   const { logout, user } = useContext(authContext);
   const { state } = useContext(stateContext);
   const history = useHistory();

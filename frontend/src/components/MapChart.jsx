@@ -11,7 +11,7 @@ import Sidebar from "./Sidebar";
 import { stateContext } from "../providers/StateProvider";
 
 const MapChart = (props) => {
-  const { setTooltipContent, setStart} = props;
+  const { setTooltipContent} = props;
   const {getContinent, state} = useContext(stateContext)
 
   const onContinentClick = (continentName) => {
@@ -20,7 +20,7 @@ const MapChart = (props) => {
 
   return (
     <>
-      <Sidebar setStart={setStart} continent={state.continent && state.continent.name} />
+      <Sidebar/>
       <ComposableMap data-tip="" projectionConfig={{ scale: 270 }}>
         <ZoomableGroup>
           <Geographies geography={geoData}>

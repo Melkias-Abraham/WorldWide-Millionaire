@@ -116,7 +116,7 @@ module.exports = (db) => {
 
   const getScores = () => {
     const query = {
-      text: `SELECT * FROM games JOIN users ON games.user_id = users.id;`,
+      text: `SELECT * FROM games JOIN users ON games.user_id = users.id ORDER BY score DESC;`,
     };
     return db
       .query(query)

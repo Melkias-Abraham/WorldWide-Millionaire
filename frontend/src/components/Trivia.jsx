@@ -5,35 +5,34 @@ import { stateContext } from "../providers/StateProvider";
 import { useHistory } from "react-router-dom";
 import { authContext } from "../providers/AuthProviders";
 
-
 export default function Trivia(props) {
-
-  const { questionNumber, setQuestionNumber, setStop, setEarned } = props;
+  const { questionNumber, setQuestionNumber, setStop } = props;
   const [question, setQuestion] = useState(null);
-  const [selectedAnswer, setselectedAnswer] = useState(null)
-  const [className, setClassName] = useState("answer")
-  const [remainingTime, setRemainingTime] = useState(30)
+  const [selectedAnswer, setselectedAnswer] = useState(null);
+  const [className, setClassName] = useState("answer");
+  const [remainingTime, setRemainingTime] = useState(6);
   const history = useHistory();
 
-  const {state, getQuestions, setScores} = useContext(stateContext);
+  const { state, getQuestions, setScores, setEarned } =
+    useContext(stateContext);
   const { userId } = useContext(authContext);
 
   const continent = state.continent && state.continent;
-  
-  useEffect(() => {
-        const interval = setInterval(() => {
-      setRemainingTime((prev) => prev - 1)
-    }, 1000)
 
-    if(remainingTime === 0 ) {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRemainingTime((prev) => prev - 1);
+    }, 1000);
+
+    if (remainingTime === 0) {
+      setScores(userId, state.earned);
       return setStop(true);
     }
-   return () => clearInterval(interval)
-  }, [setStop, remainingTime])
+    return () => clearInterval(interval);
+  }, [setStop, remainingTime, state.earned, userId]);
 
   useEffect(() => {
-
-    if(!continent) return history.replace('/')
+    if (!continent) return history.replace("/");
     getQuestions(continent.id);
   }, [continent]);
 
@@ -44,60 +43,60 @@ export default function Trivia(props) {
   }, [state.questions, questionNumber]);
 
   useEffect(() => {
-    const score = questionNumber > 1 && moneyAmounts.find(money => money.id === questionNumber -1).amount
-    setScores(userId, score)
-    questionNumber > 1 && setEarned(score)
-  }, [questionNumber])
+    const finalEarning =
+      questionNumber > 1 &&
+      moneyAmounts.find((money) => money.id === questionNumber - 1).amount;
+
+    setScores(userId, finalEarning);
+    questionNumber > 1 && setEarned(finalEarning);
+  }, [questionNumber]);
 
   const delay = (duration, cb) => {
     setTimeout(() => {
       cb();
-    }, duration)
-  }
+    }, duration);
+  };
 
   const handleClick = (ans) => {
     setselectedAnswer(ans);
     setClassName("answer active");
 
     delay(3000, () => {
-      setClassName(ans.correct ? "answer correct" : "answer wrong ")
+      setClassName(ans.correct ? "answer correct" : "answer wrong ");
     });
 
     delay(6000, () => {
       if (ans.correct) {
-        setQuestionNumber((prev) => prev + 1)
-        setselectedAnswer(null)
-        setRemainingTime(30)
+        setQuestionNumber((prev) => prev + 1);
+        setselectedAnswer(null);
+        setRemainingTime(6);
       } else {
-        setStop(true)
-        
+        setStop(true);
       }
-    })
-  }
+    });
+  };
 
+  // earnings hierarchy - removed '$' so that leaderboard can use numbers and show in descending order
   const moneyAmounts = [
-    { id: 10, amount: "$ 1000000" },
-    { id: 9, amount: "$ 500000" },
-    { id: 8, amount: "$ 250000" },
-    { id: 7, amount: "$ 100000" },
-    { id: 6, amount: "$ 50000" },
-    { id: 5, amount: "$ 10000" },
-    { id: 4, amount: "$ 5000" },
-    { id: 3, amount: "$ 1000" },
-    { id: 2, amount: "$ 500" },
-    { id: 1, amount: "$ 100" }
+    { id: 10, amount: "1000000" },
+    { id: 9, amount: "500000" },
+    { id: 8, amount: "250000" },
+    { id: 7, amount: "100000" },
+    { id: 6, amount: "50000" },
+    { id: 5, amount: "10000" },
+    { id: 4, amount: "5000" },
+    { id: 3, amount: "1000" },
+    { id: 2, amount: "500" },
+    { id: 1, amount: "100" },
   ];
-  
 
   return (
     <div className="trivia">
-    
-      
       <div className="main">
-
-
         <div className="top">
-          <div className={remainingTime < 11 ? "timer runningout" : "timer"}>{remainingTime}</div>
+          <div className={remainingTime < 11 ? "timer runningout" : "timer"}>
+            {remainingTime}
+          </div>
         </div>
 
         <div className="bottom">
@@ -105,26 +104,34 @@ export default function Trivia(props) {
 
           <div className="answers">
             {question?.answers[0].map((answer) => (
-              <div key={answer.id} className={selectedAnswer === answer ? className : "answer"} onClick={() => handleClick(answer)}>
+              <div
+                key={answer.id}
+                className={selectedAnswer === answer ? className : "answer"}
+                onClick={() => handleClick(answer)}
+              >
                 {answer.answer}
               </div>
             ))}
           </div>
-
         </div>
       </div>
 
       <div className="money">
         <ul className="moneyList">
           {moneyAmounts.map((level) => (
-            <li key={level.id} className={level.id === questionNumber ? "moneyListItem current" : "moneyListItem"}>
+            <li
+              key={level.id}
+              className={
+                level.id === questionNumber
+                  ? "moneyListItem current"
+                  : "moneyListItem"
+              }
+            >
               {level.amount}
             </li>
           ))}
         </ul>
       </div>
-
-     
     </div>
   );
 }

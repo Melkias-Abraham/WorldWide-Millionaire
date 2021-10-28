@@ -2,7 +2,8 @@ export const SET_USERS = "SET_USERS";
 export const SET_QUESTIONS = "SET_QUESTIONS";
 export const SET_CONTINENT = "SET_CONTINENT";
 export const GET_SCORES = "GET_SCORES";
-export const SET_SCORES = "SET_SCORES";
+export const SET_EARNED = "SET_EARNED";
+
 const dataReducer = (state, action) => {
   switch (action.type) {
     case SET_USERS:
@@ -32,9 +33,11 @@ const dataReducer = (state, action) => {
         loading: false,
       };
 
-    case SET_SCORES:
+    case SET_EARNED:
       return{
-        ...state
+        ...state,
+        earned: action.earned,
+        loading:false
       }
 
 
