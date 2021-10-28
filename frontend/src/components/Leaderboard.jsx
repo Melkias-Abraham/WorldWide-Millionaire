@@ -52,7 +52,7 @@ export default function Leaderboard() {
           <TableHead>
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell>Score</StyledTableCell>
+              <StyledTableCell>Highest Earning</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -61,7 +61,7 @@ export default function Leaderboard() {
                 <StyledTableCell component="th" scope="row">
                   {score.name}
                 </StyledTableCell>
-                <StyledTableCell >{score.score}</StyledTableCell>
+                <StyledTableCell >$ {score.score}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
