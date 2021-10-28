@@ -1,5 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
+
+import useSound from 'use-sound';
+import correct from "../addons/correct.wav"
+import idle from "../addons/idle.wav"
+import start from "../addons/start.wav"
+import wrong from "../addons/wrong.wav"
+
 import "./Trivia.css";
 
 
@@ -11,6 +18,15 @@ export default function Trivia(props) {
   const [selectedAnswer, setselectedAnswer] = useState(null)
   const [className, setClassName] = useState("answer")
   const [remainingTime, setRemainingTime] = useState(30)
+
+  const [newGame] = useSound(start);
+  const [correctAnswer] = useSound(correct);
+  const [wrongAnswer] = useSound(wrong);
+  const [waiting] = useSound(idle);
+
+  useEffect(() => {
+    newGame();
+  }, [newGame])
 
 
   useEffect(() => {
@@ -54,10 +70,12 @@ export default function Trivia(props) {
 
     delay(6000, () => {
       if (ans.correct) {
+        correctAnswer()
         setQuestionNumber((prev) => prev + 1)
         setselectedAnswer(null)
         setRemainingTime(30)
       } else {
+        wrongAnswer()
         setStop(true)
         
       }

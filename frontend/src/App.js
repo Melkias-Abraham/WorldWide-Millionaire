@@ -5,6 +5,7 @@ import ReactTooltip from "react-tooltip";
 
 import MapChart from "./components/MapChart";
 import Trivia from "./components/Trivia";
+import EndGame from "./components/EndGame";
 
 const App = () => {
   const [continent, setContinent] = useState({
@@ -43,7 +44,7 @@ const App = () => {
       - will 'start' to log in user later
       
       */}
-      {stop ? <h1 className="endGame"> You earned: {earned} </h1> : 
+      {stop || questionNumber === 11 ? <EndGame earned={earned} /> : 
     <React.Fragment>
       {start !== "started" ? (
         <div className="map">
