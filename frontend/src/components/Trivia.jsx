@@ -11,6 +11,7 @@ export default function Trivia(props) {
   const [selectedAnswer, setselectedAnswer] = useState(null);
   const [className, setClassName] = useState("answer");
   const [remainingTime, setRemainingTime] = useState(30);
+  const [pause, setPause] = useState(false);
   const history = useHistory();
 
   const { state, getQuestions, setScores, setEarned } =
@@ -20,15 +21,17 @@ export default function Trivia(props) {
   const continent = state.continent && state.continent;
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setRemainingTime((prev) => prev - 1);
-    }, 1000);
+    if (!pause) {
+      const interval = setInterval(() => {
+        setRemainingTime((prev) => prev - 1);
+      }, 1000);
 
-    if (remainingTime === 0) {
-      setScores(userId, state.earned);
-      return setStop(true);
+      if (remainingTime === 0) {
+        setScores(userId, state.earned);
+        return setStop(true);
+      }
+      return () => clearInterval(interval);
     }
-    return () => clearInterval(interval);
   }, [setStop, remainingTime, state.earned, userId]);
 
   useEffect(() => {
@@ -60,6 +63,7 @@ export default function Trivia(props) {
   const handleClick = (ans) => {
     setselectedAnswer(ans);
     setClassName("answer active");
+    setPause(true);
 
     delay(3000, () => {
       setClassName(ans.correct ? "answer correct" : "answer wrong ");
@@ -69,6 +73,7 @@ export default function Trivia(props) {
       if (ans.correct) {
         setQuestionNumber((prev) => prev + 1);
         setselectedAnswer(null);
+        setPause(false);
         setRemainingTime(30);
       } else {
         setStop(true);
