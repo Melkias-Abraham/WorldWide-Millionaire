@@ -51,3 +51,10 @@
   right: 0;
   margin: auto ;
 }
+
+.btn-lead{
+  color: #fff !important;
+}
+.btn-lead:hover{
+  background-color: inherit !important;
+}

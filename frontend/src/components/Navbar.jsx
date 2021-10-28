@@ -10,34 +10,33 @@ import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import MenuIcon from "@mui/icons-material/Menu";
+import { Link } from "react-router-dom";
+import SportsScoreIcon from '@mui/icons-material/SportsScore';
 
 import useAuthToggle from "../hooks/useAuthToggle";
 import { drawerContext } from "../providers/DrawerProvider";
 
-
 const drawerWidth = 400;
 
 export default function Navbar() {
+  const { handleDrawerToggle } = useContext(drawerContext);
 
-    const {handleDrawerToggle } = useContext(drawerContext)
-
-    const {
-        openLogin,
-        setOpenLogin,
-        user,
-        handleLogout,
-        handleOpenLogin,
-        handleOpenSingup,
-        mobileMenuId,
-        handleMobileMenuOpen,
-        openSignup,
-        handleSignupClose,
-        setOpenSignup,
-        handleLoginClose,
-        renderMobileMenu,
-        renderMenu
-    } = useAuthToggle();
-
+  const {
+    openLogin,
+    setOpenLogin,
+    user,
+    handleLogout,
+    handleOpenLogin,
+    handleOpenSingup,
+    mobileMenuId,
+    handleMobileMenuOpen,
+    openSignup,
+    handleSignupClose,
+    setOpenSignup,
+    handleLoginClose,
+    renderMobileMenu,
+    renderMenu,
+  } = useAuthToggle();
 
   return (
     <div>
@@ -55,7 +54,6 @@ export default function Navbar() {
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
-            
           >
             <MenuIcon />
           </IconButton>
@@ -64,6 +62,14 @@ export default function Navbar() {
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <MenuItem >
+            <SportsScoreIcon color="action"/>
+              <Link to="/scores" style={{ textDecoration: "none" }}>
+                <Button className={"btn-lead"} color="inherit">
+                  Leaderboard
+                </Button>
+              </Link>
+            </MenuItem>
             {user
               ? [
                   <MenuItem>
@@ -71,6 +77,7 @@ export default function Navbar() {
                       color="error"
                       onClick={handleLogout}
                       className="logout"
+                      variant="outlined"
                     >
                       Logout
                     </Button>

@@ -11,6 +11,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
 import { stateContext } from "../providers/StateProvider";
+import ScoreNav from './ScoreNav';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -47,6 +49,8 @@ export default function Leaderboard() {
     console.log(state);
 
   return (
+    <>
+      <ScoreNav/>
     <Container sx={{mt: '6rem'}} className="container" maxWidth="lg">
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -69,5 +73,6 @@ export default function Leaderboard() {
         </Table>
       </TableContainer>
     </Container>
+    </>
   );
 }
