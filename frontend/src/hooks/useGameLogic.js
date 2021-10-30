@@ -50,7 +50,7 @@ const { questionNumber, setQuestionNumber, setStop } = props;
       questionNumber > 1 &&
       moneyAmounts.find((money) => money.id === questionNumber - 1).amount;
 
-    setScores(userId, finalEarning);
+      finalEarning && setScores(userId, finalEarning);
     questionNumber > 1 && setEarned(finalEarning);
   }, [questionNumber]);
 

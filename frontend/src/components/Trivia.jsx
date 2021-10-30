@@ -67,7 +67,7 @@ export default function Trivia(props) {
                   : "moneyListItem"
               }
             >
-              {level.amount}
+              $ {level.amount}
             </li>
           ))}
         </ul>

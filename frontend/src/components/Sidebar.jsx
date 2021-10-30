@@ -11,7 +11,6 @@ import Snackbar from "@mui/material/Snackbar";
 import { stateContext } from "../providers/StateProvider";
 import { useHistory } from "react-router-dom";
 import Navbar from "./Navbar";
-import useAuthToggle from "../hooks/useAuthToggle";
 import { drawerContext } from "../providers/DrawerProvider";
 
 const drawerWidth = 400;

@@ -20,10 +20,10 @@ export default function EndGame(props) {
     <div className="endGame">
       {earned == 0 ? (
         <div className="title">
-          You've earned {earned}. Better luck next time!{" "}
+          You've earned $ {earned}. Better luck next time!{" "}
         </div>
       ) : (
-        <div className="title">Congratulations, you've earned {earned}.</div>
+        <div className="title">Congratulations, you've earned $ {earned}.</div>
       )}
       <div className="replay">
         <div className="text">Would you like to play again?</div>
