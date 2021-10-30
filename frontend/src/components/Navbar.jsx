@@ -18,12 +18,11 @@ import { drawerContext } from "../providers/DrawerProvider";
 
 const drawerWidth = 400;
 
-export default function Navbar() {
+export default function Navbar(props) {
+  const {setOpenLogin, openLogin } = props;
   const { handleDrawerToggle } = useContext(drawerContext);
 
   const {
-    openLogin,
-    setOpenLogin,
     user,
     handleLogout,
     handleOpenLogin,
@@ -36,7 +35,7 @@ export default function Navbar() {
     handleLoginClose,
     renderMobileMenu,
     renderMenu,
-  } = useAuthToggle();
+  } = useAuthToggle(setOpenLogin);
 
   return (
     <div>

@@ -17,21 +17,21 @@ import { drawerContext } from "../providers/DrawerProvider";
 const drawerWidth = 400;
 
 export default function Sidebar(props) {
+  const [openLogin, setOpenLogin] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [sidebarError, setSidebarError] = useState(false);
+
   const { window } = props;
   const { user } = useContext(authContext);
   const { state } = useContext(stateContext);
   const history = useHistory();
-  const {setOpenLogin} = useAuthToggle;
   const { mobileOpen, handleDrawerToggle } = useContext(drawerContext)
 
   const continent = state.continent && state.continent.name;
 
-  const [openSnackbar, setOpenSnackbar] = React.useState(false);
-  const [sidebarError, setSidebarError] = useState(false);
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
-
 
 
   // Start game click handlers
@@ -89,7 +89,7 @@ export default function Sidebar(props) {
           Please login first.
         </Alert>
       </Snackbar>
-      <Navbar/>
+      <Navbar setOpenLogin={setOpenLogin} openLogin={openLogin} />
       <Drawer
         container={container}
         variant="temporary"

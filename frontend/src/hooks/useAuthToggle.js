@@ -4,8 +4,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 
-const useAuthToggle = () => {
-  const [openLogin, setOpenLogin] = useState(false);
+const useAuthToggle = (setOpenLogin) => {
   const [openSignup, setOpenSignup] = useState(false);
 
   const { logout, user } = useContext(authContext);
@@ -119,8 +118,6 @@ const useAuthToggle = () => {
   );
 
   return {
-    openLogin,
-    setOpenLogin,
     user,
     handleLogout,
     handleOpenLogin,
