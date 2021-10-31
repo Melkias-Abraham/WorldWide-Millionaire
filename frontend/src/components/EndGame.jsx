@@ -1,19 +1,26 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router";
 
 
 import "./EndGame.css";
 
 import Button from "@mui/material/Button";
+import { stateContext } from "../providers/StateProvider";
 
 export default function EndGame(props) {
   const { earned, setStop, setQuestionNumber } = props;
   const history = useHistory();
 
+  const {setEarned, setScores } =
+  useContext(stateContext);
+
+  
+
   const handleRestartClick = () => {
     setStop(false);
     setQuestionNumber(1);
-    history.replace("/");
+    setEarned(0)
+    history.push("/");
   };
 
   return (
