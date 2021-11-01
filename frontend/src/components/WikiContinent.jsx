@@ -56,6 +56,7 @@ export default function WikiContinent() {
     }
 group by ?continent ?continentLabel ?continentFlag ?continentPopulation ?pageBanner`;
     if (state.continent) {
+      setContinentData(prev => ({...prev, loading: true}))
       queryWikidata(sparql)
         .then((result) => {
           // console.log("state", state);
@@ -66,12 +67,11 @@ group by ?continent ?continentLabel ?continentFlag ?continentPopulation ?pageBan
             image: "",
             borders: "",
             consists: "",
-            loading: true,
+            loading: false,
           };
           const c = result.find(
             (data) => data.continentLabel.value === state.continent.name
           );
-          console.log(c);
 
           dataObj = {
             population: c.continentPopulation.value,
@@ -123,7 +123,7 @@ group by ?continent ?continentLabel ?continentFlag ?continentPopulation ?pageBan
             <Card sx={{ maxWidth: 400 }}>
               <CardHeader
                 title={(state.continent && state.continent.name) || "World"}
-                subheader="Please select a continent"
+                subheader="Intro:"
               />
               <CardMedia
                 component="img"
