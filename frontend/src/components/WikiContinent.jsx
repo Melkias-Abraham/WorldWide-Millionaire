@@ -102,7 +102,7 @@ group by ?continent ?continentLabel ?continentFlag ?continentPopulation ?pageBan
         <List sx={{ alignSelf: "flex-start" }} subheader={<li />}>
           <ListItemText primary="1. Do not talk about fight club" />
           <ListItemText primary="2. Select a continent from the map " />
-          <ListItemText primary="3.Click Start Game" />
+          <ListItemText primary="3. Click Start Game" />
           <ListItemText primary="4. Answer some questions" />
           <ListItemText primary="5. Enjoy" />
         </List>
