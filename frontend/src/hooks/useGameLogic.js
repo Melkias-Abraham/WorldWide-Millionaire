@@ -23,9 +23,10 @@ const { questionNumber, setQuestionNumber, setStop } = props;
       const interval = setInterval(() => {
         setRemainingTime((prev) => prev - 1);
       }, 1000);
-
+      
       if (remainingTime === 0) {
         setScores(userId, state.earned);
+        wrongAnswer()
         return setStop(true);
       }
       return () => clearInterval(interval);
@@ -37,7 +38,7 @@ const { questionNumber, setQuestionNumber, setStop } = props;
     getQuestions(continent.id);
   }, [continent]);
 
-  console.log(state);
+  // console.log(state);
   useEffect(() => {
     if (!state.questions) return <span>loading...</span>;
     setQuestion(state.questions[questionNumber - 1]);

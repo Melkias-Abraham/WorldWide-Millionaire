@@ -80,7 +80,6 @@ group by ?continent ?continentLabel ?continentFlag ?continentPopulation ?pageBan
             consists: c.containLabels,
             loading: false,
           };
-          console.log("THIS IS CONTINENT DATA", c);
           setContinentData(dataObj);
         })
         .catch((err) => err);
@@ -97,14 +96,14 @@ group by ?continent ?continentLabel ?continentFlag ?continentPopulation ?pageBan
 
   const introCard = (
     <Card sx={{ maxWidth: 400, fontSize: "20px !important" }}>
-      <CardHeader title={"Rules:"} />
+      <CardHeader title={"Quick Start:"} />
+      <Divider />
       <CardContent>
         <List sx={{ alignSelf: "flex-start" }} subheader={<li />}>
-          <ListItemText primary="1. Do not talk about fight club" />
-          <ListItemText primary="2. Select a continent from the map " />
-          <ListItemText primary="3. Click Start Game" />
-          <ListItemText primary="4. Answer some questions" />
-          <ListItemText primary="5. Enjoy" />
+          <ListItemText primary="1. Choose a continent from the map" />
+          <ListItemText primary="2. Click Start Game" />
+          <ListItemText primary="3. Answer some questions" />
+          <ListItemText primary="4. Enjoy!" />
         </List>
       </CardContent>
     </Card>
@@ -112,7 +111,6 @@ group by ?continent ?continentLabel ?continentFlag ?continentPopulation ?pageBan
 
   return (
     <>
-      {console.log(continentData)}
       {continentData.loading ? (
         skeleton
       ) : (
@@ -134,19 +132,19 @@ group by ?continent ?continentLabel ?continentFlag ?continentPopulation ?pageBan
                 alt="wwtbam background"
               />
               <CardContent>
-                <Typography variant="body2">
+                <Typography component={'div'} variant="body2">
                 <Typography variant="h6" display="inline">Population: </Typography> 
                   {(continentData && continentData.population) || "So many"}
                 </Typography>
                 <Divider sx={{ m: "1rem 0" }} />
 
-                <Typography variant="body2">
+                <Typography component={'div'} variant="body2">
                 <Typography variant="h6" display="inline">Borders: </Typography> 
                   {(continentData && continentData.borders.value) || "So many"}
                 </Typography>
                 <Divider sx={{ m: "1rem 0" }} />
 
-                <Typography variant="body2">
+                <Typography component={'div'} variant="body2">
                 <Typography variant="h6" display="inline">Consists of: </Typography>  {(continentData && continentData.consists.value) || "So many"}
                 </Typography>
                 <Divider sx={{ mt: "1rem" }} />

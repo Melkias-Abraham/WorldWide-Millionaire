@@ -46,7 +46,7 @@ export default function Leaderboard() {
 
     if (!state.scores) return <span>loading..</span>
     const scores = state.scores && state.scores;
-    console.log(state);
+    // console.log(state);
 
   return (
     <>

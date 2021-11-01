@@ -14,6 +14,7 @@ import Navbar from "./Navbar";
 import { drawerContext } from "../providers/DrawerProvider";
 import WikiContinent from "./WikiContinent";
 import "./Sidebar.css";
+import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
 
 const drawerWidth = 450;
 
@@ -58,7 +59,7 @@ export default function Sidebar(props) {
     <div>
       <Toolbar>
         <div>
-          <h3>WorldWide Millionaire 💰 </h3>
+          <h3>WorldWide Millionaire <MonetizationOnOutlinedIcon/> </h3>
         </div>
       </Toolbar>
       <Divider />

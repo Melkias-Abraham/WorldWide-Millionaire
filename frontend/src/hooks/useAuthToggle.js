@@ -88,14 +88,14 @@ const useAuthToggle = (setOpenLogin) => {
     >
       {user
         ? [
-            <MenuItem>
+            <MenuItem key={0}>
               <Button color="error" onClick={handleLogout} className="logout">
                 Logout
               </Button>
             </MenuItem>,
           ]
         : [
-            <MenuItem>
+            <MenuItem key={1}>
               <Button
                 color="inherit"
                 className="login"
@@ -104,7 +104,7 @@ const useAuthToggle = (setOpenLogin) => {
                 Login
               </Button>
             </MenuItem>,
-            <MenuItem>
+            <MenuItem key={2}>
               <Button
                 color="inherit"
                 className="signup"
