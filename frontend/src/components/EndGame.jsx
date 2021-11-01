@@ -11,10 +11,10 @@ export default function EndGame(props) {
   const { earned, setStop, setQuestionNumber } = props;
   const history = useHistory();
 
-  const {setEarned, setScores } =
+  const {setEarned } =
   useContext(stateContext);
 
-  
+
 
   const handleRestartClick = () => {
     setStop(false);

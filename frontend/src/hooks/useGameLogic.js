@@ -49,8 +49,6 @@ const { questionNumber, setQuestionNumber, setStop } = props;
     const finalEarning =
       questionNumber > 1 &&
       moneyAmounts.find((money) => money.id === questionNumber - 1).amount;
-
-      console.log(state.earned);
       (finalEarning || finalEarning === 0) && setScores(userId, finalEarning);
     questionNumber > 1 && setEarned(finalEarning);
   }, [questionNumber]);
