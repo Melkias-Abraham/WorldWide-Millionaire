@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import { stateContext } from "../providers/StateProvider";
 
 export default function EndGame(props) {
-  const { earned, setStop, setQuestionNumber } = props;
+  const { earned, setStop, setQuestionNumber, questionNumber } = props;
   const history = useHistory();
 
   const {setEarned } =
@@ -29,6 +29,8 @@ export default function EndGame(props) {
         <div className="title">
           You've earned $ {earned}. Better luck next time!{" "}
         </div>
+      ) : questionNumber === 11 ?  (
+        <div className="title">Congratulations, you've earned $ 1000000.</div>
       ) : (
         <div className="title">Congratulations, you've earned $ {earned}.</div>
       )}
