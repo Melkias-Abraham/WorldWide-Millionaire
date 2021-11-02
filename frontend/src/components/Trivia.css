@@ -144,3 +144,14 @@
   background-color: turquoise;
   border-radius: 10px;
 }
+
+.hintText {
+  width: 40%;
+  background: rgb(191, 101, 233);
+  border: 2px solid white;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 20px;
+}

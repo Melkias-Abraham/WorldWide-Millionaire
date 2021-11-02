@@ -38,10 +38,15 @@ export default function Trivia(props) {
             {remainingTime}
           </div>
         </div>
-
         <div className="bottom">
           <div className="question">{question?.question}</div>
-
+          {remainingTime < 11 && question.hint? (
+            <section
+              className="hintText">{question?.hint}
+            </section>
+          ) : (
+            <p></p>
+          )}
           <div className="answers">
             {question?.answers[0].map((answer) => (
               <div
