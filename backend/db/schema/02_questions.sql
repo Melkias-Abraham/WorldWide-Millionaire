@@ -4,5 +4,6 @@ CREATE TABLE questions (
   id SERIAL PRIMARY KEY NOT NULL,
   region_id INTEGER REFERENCES regions(id) ON DELETE CASCADE,
   question VARCHAR(255) NOT NULL,
+  hint VARCHAR(255),
   difficulty VARCHAR(255) NOT NULL
 );
