@@ -35,7 +35,7 @@ This app is based on the famous TV game show known as [Who Wants To Be A Million
 ---
 !["Final"](https://github.com/96sMicks/WorldWide-Millionaire/blob/main/screenshots/final.png)
 
----
+
 ## Creating The DB
 
 Create a database with the command `CREATE DATABASE scheduler_development;`.
