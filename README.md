@@ -12,7 +12,7 @@ This app is based on the famous TV game show known as [Who Wants To Be A Million
 - **[WahabA110](https://github.com/WahabA110)**
 - **[zakwarsame](https://github.com/zakwarsame)**
 
-### Technologies Used
+## Technologies Used
 
 - [React](https://reactjs.org/)
 - [Express](https://expressjs.com/)
@@ -21,7 +21,7 @@ This app is based on the famous TV game show known as [Who Wants To Be A Million
 - [Create React App](https://facebook.github.io/create-react-app/)
 - [Wikidata Query Service](https://query.wikidata.org/)
 
-### Screenshots
+## Screenshots
 
 
 !["Home Page"](https://github.com/96sMicks/WorldWide-Millionaire/blob/main/screenshots/home.png)
