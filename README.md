@@ -23,7 +23,7 @@ This app is based on the famous TV game show known as [Who Wants To Be A Million
 
 ### Screenshots
 
-!["Home page"](https://github.com/96sMicks/WorldWide-Millionaire/blob/main/screenshots/home.png)
+!["Home Page"](https://github.com/96sMicks/WorldWide-Millionaire/blob/main/screenshots/home.png)
 !["Login"](https://github.com/96sMicks/WorldWide-Millionaire/blob/main/screenshots/login.png)
 !["Game Play"](https://github.com/96sMicks/WorldWide-Millionaire/blob/main/screenshots/game_play.png)
 !["Final"](https://github.com/96sMicks/WorldWide-Millionaire/blob/main/screenshots/final.png)
