@@ -595,7 +595,7 @@ VALUES
    (
     30,
     '1,332 km',
-    false
+    true
    ),
    (
     31,
