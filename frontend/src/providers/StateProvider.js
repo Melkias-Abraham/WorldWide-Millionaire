@@ -66,13 +66,13 @@ export default function StateProvider(props) {
         .then(({
             data
         }) => {
-            console.log(data);
+            // console.log(data);
             dispatch({
                 type: SET_USERS,
                 users: data
             });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => err);
 }, []);
 
 

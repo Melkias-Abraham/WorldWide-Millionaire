@@ -1,7 +1,7 @@
 .endGame {
   height: 100vh;
   background-color: #0A0A4F;
-  background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url(../addons/game.png);
+  background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6) ), url(../addons/game.png);
   width: 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -23,6 +23,7 @@
 .text {
   font-size: 20px;
   font-weight: 300;
+  margin: 1em;
 }
 
 .replay {

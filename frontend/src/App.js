@@ -42,7 +42,7 @@ const App = () => {
           </Route>
           <Route path="/game">
             {stop || questionNumber === 11 ? (
-              <EndGame setQuestionNumber={setQuestionNumber} setStop={setStop} earned={state && state.earned} />
+              <EndGame setQuestionNumber={setQuestionNumber} questionNumber={questionNumber} setStop={setStop} earned={state && state.earned} />
             ) : (
               <Trivia
                 questionNumber={questionNumber}

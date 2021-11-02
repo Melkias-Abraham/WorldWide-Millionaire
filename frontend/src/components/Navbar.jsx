@@ -18,12 +18,11 @@ import { drawerContext } from "../providers/DrawerProvider";
 
 const drawerWidth = 400;
 
-export default function Navbar() {
+export default function Navbar(props) {
+  const {setOpenLogin, openLogin } = props;
   const { handleDrawerToggle } = useContext(drawerContext);
 
   const {
-    openLogin,
-    setOpenLogin,
     user,
     handleLogout,
     handleOpenLogin,
@@ -36,7 +35,7 @@ export default function Navbar() {
     handleLoginClose,
     renderMobileMenu,
     renderMenu,
-  } = useAuthToggle();
+  } = useAuthToggle(setOpenLogin);
 
   return (
     <div>
@@ -62,7 +61,7 @@ export default function Navbar() {
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <MenuItem >
+            <MenuItem>
             <SportsScoreIcon color="action"/>
               <Link to="/scores" style={{ textDecoration: "none" }}>
                 <Button className={"btn-lead"} color="inherit">
@@ -72,7 +71,7 @@ export default function Navbar() {
             </MenuItem>
             {user
               ? [
-                  <MenuItem>
+                  <MenuItem key={0}>
                     <Button
                       color="error"
                       onClick={handleLogout}
@@ -84,7 +83,7 @@ export default function Navbar() {
                   </MenuItem>,
                 ]
               : [
-                  <MenuItem>
+                  <MenuItem key={1}>
                     <Button
                       color="inherit"
                       className="login"
@@ -93,7 +92,7 @@ export default function Navbar() {
                       Login
                     </Button>
                   </MenuItem>,
-                  <MenuItem>
+                  <MenuItem key={2}>
                     <Button
                       color="inherit"
                       className="signup"

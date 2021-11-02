@@ -1,29 +1,38 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router";
 
 
 import "./EndGame.css";
 
 import Button from "@mui/material/Button";
+import { stateContext } from "../providers/StateProvider";
 
 export default function EndGame(props) {
-  const { earned, setStop, setQuestionNumber } = props;
+  const { earned, setStop, setQuestionNumber, questionNumber } = props;
   const history = useHistory();
+
+  const {setEarned } =
+  useContext(stateContext);
+
+
 
   const handleRestartClick = () => {
     setStop(false);
     setQuestionNumber(1);
-    history.replace("/");
+    setEarned(0)
+    history.push("/");
   };
 
   return (
     <div className="endGame">
       {earned == 0 ? (
         <div className="title">
-          You've earned {earned}. Better luck next time!{" "}
+          You've earned $ {earned}. Better luck next time!{" "}
         </div>
+      ) : questionNumber === 11 ?  (
+        <div className="title">Congratulations, you've earned $ 1000000.</div>
       ) : (
-        <div className="title">Congratulations, you've earned {earned}.</div>
+        <div className="title">Congratulations, you've earned $ {earned}.</div>
       )}
       <div className="replay">
         <div className="text">Would you like to play again?</div>

@@ -60,11 +60,11 @@ export default function SignUp(props) {
 
     try {
       const res = await axios.post("/api/users/register", newUser);
-      console.log(res);
+      // console.log(res);
       setError(false);
       setSuccess(true);
     } catch (err) {
-      console.log(err.response.data.msg);
+      // console.log(err.response.data.msg);
       setSuccess(false);
       setError(true);
       setErrMsg(err.response.data.msg);

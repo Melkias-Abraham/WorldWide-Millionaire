@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { authContext } from "../providers/AuthProviders";
 import { useHistory } from "react-router-dom";
 import { stateContext } from "../providers/StateProvider";
-
+import LinearProgress from "@mui/material/LinearProgress";
+import Box from "@mui/material/Box";
 
 const useGameLogic = (props, setClassName, correctAnswer, wrongAnswer) => {
-const { questionNumber, setQuestionNumber, setStop } = props;
+  const { questionNumber, setQuestionNumber, setStop } = props;
   const [question, setQuestion] = useState(null);
   const [selectedAnswer, setselectedAnswer] = useState(null);
   const [remainingTime, setRemainingTime] = useState(30);
@@ -26,6 +27,7 @@ const { questionNumber, setQuestionNumber, setStop } = props;
 
       if (remainingTime === 0) {
         setScores(userId, state.earned);
+        wrongAnswer();
         return setStop(true);
       }
       return () => clearInterval(interval);
@@ -37,20 +39,25 @@ const { questionNumber, setQuestionNumber, setStop } = props;
     getQuestions(continent.id);
   }, [continent]);
 
-  console.log(state);
+  // console.log(state);
   useEffect(() => {
-    if (!state.questions) return <span>loading...</span>;
+    if (!state.questions)
+      return (
+        <span>
+          {" "}
+          <Box sx={{ width: "100%" }}>
+            <LinearProgress />
+          </Box>
+        </span>
+      );
     setQuestion(state.questions[questionNumber - 1]);
   }, [state.questions, questionNumber]);
-
-
 
   useEffect(() => {
     const finalEarning =
       questionNumber > 1 &&
       moneyAmounts.find((money) => money.id === questionNumber - 1).amount;
-
-    setScores(userId, finalEarning);
+    (finalEarning || finalEarning === 0) && setScores(userId, finalEarning);
     questionNumber > 1 && setEarned(finalEarning);
   }, [questionNumber]);
 
@@ -71,14 +78,15 @@ const { questionNumber, setQuestionNumber, setStop } = props;
 
     delay(6000, () => {
       if (ans.correct) {
-        correctAnswer()
+        correctAnswer();
         setQuestionNumber((prev) => prev + 1);
         setselectedAnswer(null);
         setPause(false);
         setRemainingTime(30);
       } else {
-        wrongAnswer()
+        wrongAnswer();
         setStop(true);
+        setScores(userId, state.earned);
       }
     });
   };
@@ -97,14 +105,13 @@ const { questionNumber, setQuestionNumber, setStop } = props;
     { id: 1, amount: "100" },
   ];
 
-
   return {
     remainingTime,
     question,
     moneyAmounts,
     questionNumber,
     selectedAnswer,
-    handleClick
+    handleClick,
   };
 };
 

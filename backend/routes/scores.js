@@ -24,8 +24,7 @@ module.exports = ({
             score
         } = req.body;
 
-
-        if (userId === "" || isNaN(score)  || !userId) {
+        if (userId === "" || isNaN(score)  || !userId || score === false ) {
             return res.status(401).json({
                 msg: "Fields cannot be blank."
             });

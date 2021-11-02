@@ -218,12 +218,12 @@ VALUES
   ),
     (
     11,
-    'Columbia',
+    'Colombia',
     false
   ),
    (
     12,
-    'Equador',
+    'Ecuador',
     false
   ),
    (
@@ -267,7 +267,7 @@ VALUES
     true
   ),(
     14,
-    'Equador',
+    'Ecuador',
     false
   ),(
     14,
@@ -294,7 +294,7 @@ VALUES
   ),
   (
     15,
-    'Columbia',
+    'Colombia',
     true
   ),
   (
@@ -479,7 +479,7 @@ VALUES
   ),
   (
     25,
-    'Spainish',
+    'Spanish',
     false
   ),
   (
