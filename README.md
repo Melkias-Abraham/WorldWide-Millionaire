@@ -1,37 +1,54 @@
-# WorldWide-Millionaire
 <h1 align="center">
-  <img width="200" src="./public/images/logo.png" alt="Interview Scheduler Logo">
+  WorldWide-Millionaire
 </h1>
-<p align="center">
-  Check out the live link <a href="https://schedulerverse.netlify.app/" target="_blank">schedulerverse.netlify.app </a> where <a href="https://www.netlify.com/" target="_blank">Netlify</a> serves the client, while automatic continuous integration and tests are managed using <a href="https://circleci.com/" target="_blank">CircleCI</a>. The server is hosted on <a href="https://www.heroku.com/" target="_blank">Heroku</a>.
-</p> 
 
-<p align="center">
-<img width="720" src="https://github.com/zakwarsame/scheduler/blob/master/docs/home.png" alt="Home Page">
-</p> 
+## Description
 
-## 🚨 Description
+This app is based on the famous TV game show known as [Who Wants To Be A Millionaire](https://en.wikipedia.org/wiki/Who_Wants_to_Be_a_Millionaire_(American_game_show)). A user is able to select a region/continent and will be provided with questions based on the option selected. Users will try to provide the correct answers to progress through the game. After each correct answer, you get more money and if you choose wrong, the game ends with the final amount being the last balance there was.
 
-This is a single page application built using React on the frontend and a backend API where the data is persisted using PostreSQL. A user can switch between days, book an interview in an empty appointment slot, cancel an existing interview, edit and delete. The scheduler API used is [here](https://github.com/zakwarsame/scheduler-api)
+## The Team
 
-When a user books or cancels an interview, all connected users see the update in their browser. This is achieved via the [Websockets API ](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API). Both servers run concurrently; requests are proxied from the Webpack development server to the API server.
+- **[96sMicks](https://github.com/96sMicks)**
+- **[WahabA110](https://github.com/WahabA110)**
+- **[zakwarsame](https://github.com/zakwarsame)**
 
-### 💻 Technologies Used
+### Technologies Used
 
 - [React](https://reactjs.org/)
 - [Express](https://expressjs.com/)
 - [Webpack](https://webpack.js.org/), [Babel](https://babeljs.io/)
 - [Axios](https://github.com/axios/axios), [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
-- [Storybook](https://storybook.js.org/), [Webpack Dev Server](https://github.com/webpack/webpack-dev-server), [Jest](https://jestjs.io/en/), [Testing Library](https://testing-library.com/)
 - [Create React App](https://facebook.github.io/create-react-app/)
+- [Wikidata Query Service](https://query.wikidata.org/)
 
-### 🖥️ Demo
+### Screenshots
 
-!["Scheduler gif"](https://github.com/zakwarsame/scheduler/blob/master/docs/demonstration.gif)
+!["Home page"](https://github.com/96sMicks/WorldWide-Millionaire/blob/master/screenshots/home.png)
+!["Login"](https://github.com/96sMicks/WorldWide-Millionaire/blob/master/screenshots/login.png)
+!["Game Play"](https://github.com/96sMicks/WorldWide-Millionaire/blob/master/screenshots/game_play.png)
+!["Final"](https://github.com/96sMicks/WorldWide-Millionaire/blob/master/screenshots/final.png)
 
-## 🛠 Installation & Set Up
+## Creating The DB
 
-1. Install and use the correct version of Node using [NVM](https://github.com/nvm-sh/nvm). This app was both built and hosted using node v10.16.1 and it is highly recommended to use this in your environment
+Create a database with the command `CREATE DATABASE scheduler_development;`.
+
+Copy the `.env.example` file to `.env.development` and fill in the necessary PostgreSQL configuration. The `node-postgres` library uses these environment variables by default.
+
+```
+DB_HOST = localhost
+DB_USER = labber
+DB_PASS = labber
+DB_NAME = World_Wide_Millionaire 
+DB_PORT = 5432
+```
+
+## Seeding
+
+- On the terminal, run `npm run db:reset`.
+
+## Installation & Set Up For Both Frontend and Backend
+
+1. Install and use the correct version of Node using [NVM](https://github.com/nvm-sh/nvm). This app was built using node v10.16.1 and it is highly recommended to use this in your environment
 
    ```sh
    nvm install
@@ -43,48 +60,33 @@ When a user books or cancels an interview, all connected users see the update in
    npm install
    ```
 
-1. Start the development server
+1. Start the development servers
 
    ```sh
    npm start
    ```
 
-### 🚀 Building and Running for Production
-
-1. Generate a full static production build
-
-   ```sh
-   npm run build
-   ```
-
-### 🧪 Running Jest Test Framework
-
-```sh
-npm test
-```
-
-### 📕 Running Storybook Visual Testbed
-
-```sh
-npm run storybook
-```
-
 ## Dependencies
 
-- @babel/core
-- @storybook/addon-actions
-- @storybook/addon-backgrounds
-- @storybook/addon-links
-- @storybook/addons
-- @storybook/react
-- @testing-library/jest-dom
-- @testing-library/react
-- @testing-library/react-hooks
-- babel-loader
-- node-sass
-- prop-types
-- react-test-renderer
+- Backend:
+    - bcryptjs
+    - chalk
+    - cookie-parser
+    - debug
+    - dotenv
+    - express
+    - morgan
+    - pg
+    - pg-native
+    - nodemon
 
-## Known Issues
-
-Opening the live link for the first time may show an empty app. This is because the server instance shuts down after 30 minutes of inactivity. Refreshing the page will revive the server and make it behave as expected.
+- Frontend:
+    - react-router-dom
+    - material-ui
+    - @mui/icons-material
+    - @mui/material
+    - @testing-library/jest-dom
+    - @testing-library/user-event
+    - axios
+    - use-sound
+    - web-vitals
