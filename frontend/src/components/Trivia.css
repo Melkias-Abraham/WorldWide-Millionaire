@@ -145,5 +145,12 @@
 }
 
 .hintText {
+  width: 40%;
+  background: turquoise;
+  border: 2px solid white;
   color: white;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 20px;
 }

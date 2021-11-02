@@ -40,9 +40,9 @@ export default function Trivia(props) {
         </div>
         <div className="bottom">
           <div className="question">{question?.question}</div>
-          {remainingTime < 11 ? (
+          {remainingTime < 11 && question.hint? (
             <section
-              className="hintText">Hint
+              className="hintText">{question?.hint}
             </section>
           ) : (
             <p></p>
