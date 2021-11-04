@@ -72,11 +72,11 @@ const useGameLogic = (props, setClassName, correctAnswer, wrongAnswer) => {
     setClassName("answer active");
     setPause(true);
 
-    delay(3000, () => {
+    delay(1000, () => {
       setClassName(ans.correct ? "answer correct" : "answer wrong ");
     });
 
-    delay(6000, () => {
+    delay(3500, () => {
       if (ans.correct) {
         correctAnswer();
         setQuestionNumber((prev) => prev + 1);

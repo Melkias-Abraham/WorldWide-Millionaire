@@ -1,25 +1,15 @@
 INSERT INTO games (user_id, score) VALUES (1, 5000);
 
-INSERT INTO games (user_id, score) VALUES (2, 100000);
 insert into games (user_id, score) values (3, 5000);
-insert into games (user_id, score) values (4, 100000);
-insert into games (user_id, score) values (5, 100000);
-insert into games (user_id, score) values (6, 100000);
-insert into games (user_id, score) values (7, 1000000);
-insert into games (user_id, score) values (8, 1000000);
-insert into games (user_id, score) values (9, 1000000);
 insert into games (user_id, score) values (10, 100);
-insert into games (user_id, score) values (11, 100000);
 insert into games (user_id, score) values (12, 5000);
 insert into games (user_id, score) values (13, 250000);
 insert into games (user_id, score) values (14, 250000);
 insert into games (user_id, score) values (15, 100);
 insert into games (user_id, score) values (16, 500000);
 insert into games (user_id, score) values (17, 100);
-insert into games (user_id, score) values (18, 1000000);
 insert into games (user_id, score) values (19, 250000);
 insert into games (user_id, score) values (20, 100);
-insert into games (user_id, score) values (21, 1000000);
 insert into games (user_id, score) values (22, 250000);
 insert into games (user_id, score) values (23, 5000);
 insert into games (user_id, score) values (24, 100);

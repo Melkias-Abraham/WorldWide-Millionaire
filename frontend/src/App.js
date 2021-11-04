@@ -41,7 +41,7 @@ const App = () => {
             </div>
           </Route>
           <Route path="/game">
-            {stop || questionNumber === 11 ? (
+            {stop ? (
               <EndGame setQuestionNumber={setQuestionNumber} questionNumber={questionNumber} setStop={setStop} earned={state && state.earned} />
             ) : (
               <Trivia

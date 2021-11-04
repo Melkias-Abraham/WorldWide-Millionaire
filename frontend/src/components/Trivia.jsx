@@ -12,6 +12,8 @@ import useGameLogic from "../hooks/useGameLogic";
 export default function Trivia(props) {
   const [className, setClassName] = useState("answer");
 
+  const {setStop} = props;
+
   const [newGame] = useSound(start);
   const [correctAnswer] = useSound(correct);
   const [wrongAnswer] = useSound(wrong);
@@ -30,6 +32,12 @@ export default function Trivia(props) {
     handleClick,
   } = useGameLogic(props, setClassName, correctAnswer, wrongAnswer);
 
+  useEffect(() => {
+    if (questionNumber === 11) {
+      setStop(true)
+    }
+  }, [questionNumber]);
+
   return (
     <div className="trivia">
       <div className="main">
@@ -40,7 +48,7 @@ export default function Trivia(props) {
         </div>
         <div className="bottom">
           <div className="question">{question?.question}</div>
-          {remainingTime < 11 && question.hint? (
+          {remainingTime < 21 && question.hint? (
             <section
               className="hintText">{question?.hint}
             </section>
